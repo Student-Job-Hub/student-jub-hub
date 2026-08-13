@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\StudentJobHub.Api",
+    "\\src\\StudentJobHub.Api\\Data",
+    "\\src\\StudentJobHub.Api\\Models",
+    "\\src\\StudentJobHub.Client"
+  ],
+  "SelectedNode": "\\src\\StudentJobHub.Api\\Models\\Job.cs",
+  "PreviewInSolutionExplorer": false
+}

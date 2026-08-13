@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/StudentJobHub.Api/StudentJobHub.Api.csproj" />
+    <Project Path="src/StudentJobHub.Client/StudentJobHub.Client.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/StudentJobHub.Tests/StudentJobHub.Tests.csproj" />
+  </Folder>
+</Solution>
