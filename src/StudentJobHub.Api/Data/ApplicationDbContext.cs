@@ -36,6 +36,17 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .HasForeignKey(j => j.PostedById)
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.Entity<Job>()
+            .Property(j => j.Budget)
+            .HasPrecision(18, 2);
+
+        // ==========================================
+        // SERVICE
+        // ==========================================
+
+        builder.Entity<Service>()
+            .Property(s => s.Price)
+            .HasPrecision(18, 2);
 
         // ==========================================
         // JOB APPLICATION
@@ -52,7 +63,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .WithMany()
             .HasForeignKey(a => a.ApplicantId)
             .OnDelete(DeleteBehavior.Restrict);
-
 
         // ==========================================
         // REVIEW

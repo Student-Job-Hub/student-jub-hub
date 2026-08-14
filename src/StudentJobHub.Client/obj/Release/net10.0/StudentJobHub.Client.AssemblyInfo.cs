@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudentJobHub.Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+139ea4e9d6830e7fb7fd5f6a3f7ceb2cbfaef6f4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b18eec0ae8320edcab359826fe344f488e4db9ad")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudentJobHub.Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudentJobHub.Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
