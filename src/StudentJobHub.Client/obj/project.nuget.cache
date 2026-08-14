@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "gfz2rmgPbjk=",
+  "dgSpecHash": "VXkzm7xd3P8=",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\Downloads\\StudentJobHub\\src\\StudentJobHub.Client\\StudentJobHub.Client.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.9\\microsoft.aspnetcore.app.internal.assets.10.0.9.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.11\\microsoft.aspnetcore.app.internal.assets.10.0.11.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.authorization\\10.0.9\\microsoft.aspnetcore.authorization.10.0.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.components\\10.0.9\\microsoft.aspnetcore.components.10.0.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\10.0.9\\microsoft.aspnetcore.components.analyzers.10.0.9.nupkg.sha512",
@@ -33,9 +33,9 @@
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.validation\\10.0.9\\microsoft.extensions.validation.10.0.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.jsinterop\\10.0.9\\microsoft.jsinterop.10.0.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.jsinterop.webassembly\\10.0.9\\microsoft.jsinterop.webassembly.10.0.9.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.net.illink.tasks\\10.0.9\\microsoft.net.illink.tasks.10.0.9.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\10.0.9\\microsoft.net.sdk.webassembly.pack.10.0.9.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\10.0.9\\microsoft.netcore.app.runtime.mono.browser-wasm.10.0.9.nupkg.sha512"
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.net.illink.tasks\\10.0.11\\microsoft.net.illink.tasks.10.0.11.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\10.0.11\\microsoft.net.sdk.webassembly.pack.10.0.11.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\10.0.11\\microsoft.netcore.app.runtime.mono.browser-wasm.10.0.11.nupkg.sha512"
   ],
   "logs": []
 }

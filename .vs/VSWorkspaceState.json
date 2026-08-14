@@ -1,12 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\docs",
+    "\\src",
+    "\\src\\StudentJobHub.Api",
+    "\\src\\StudentJobHub.Api\\DTOs",
+    "\\src\\StudentJobHub.Api\\DTOs\\Auth",
     "\\src\\StudentJobHub.Client",
-    "\\src\\StudentJobHub.Client\\obj\\Release",
-    "\\src\\StudentJobHub.Client\\wwwroot",
-    "\\src\\StudentJobHub.Client\\wwwroot\\sample-data"
+    "\\src\\StudentJobHub.Client\\Components",
+    "\\src\\StudentJobHub.Client\\wwwroot"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }

@@ -166,3 +166,4 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\St
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.genruntimeconfig.cache
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\ref\StudentJobHub.Api.dll
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.sourcelink.json

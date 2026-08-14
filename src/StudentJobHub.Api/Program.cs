@@ -1,16 +1,26 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StudentJobHub.Api.Data;
 using StudentJobHub.Api.Models;
+using StudentJobHub.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Database
+// ============================================================
+// DATABASE
+// ============================================================
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ASP.NET Core Identity
+// ============================================================
+// ASP.NET CORE IDENTITY
+// ============================================================
+
 builder.Services
     .AddIdentityCore<ApplicationUser>()
     .AddRoles<IdentityRole>()
@@ -18,29 +28,121 @@ builder.Services
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-// Controllers
+// ============================================================
+// JWT AUTHENTICATION
+// ============================================================
+
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+
+        options.DefaultChallengeScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    builder.Configuration["Jwt:Key"]!))
+        };
+    });
+
+// ============================================================
+// AUTHORIZATION
+// ============================================================
+
+builder.Services.AddAuthorization();
+
+// ============================================================
+// APPLICATION SERVICES
+// ============================================================
+
+builder.Services.AddScoped<AuthService>();
+
+// ============================================================
+// CONTROLLERS
+// ============================================================
+
 builder.Services.AddControllers();
 
-// OpenAPI
+// ============================================================
+// OPENAPI
+// ============================================================
+
 builder.Services.AddOpenApi();
 
-// SignalR
+// ============================================================
+// SIGNALR
+// ============================================================
+
 builder.Services.AddSignalR();
 
+// ============================================================
 // CORS
+// ============================================================
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ClientPolicy", policy =>
     {
         policy
-            .WithOrigins("https://localhost:7000", "http://localhost:5000")
+            .WithOrigins(
+                "https://localhost:7000",
+                "http://localhost:5000")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
     });
 });
 
+// ============================================================
+// BUILD APPLICATION
+// ============================================================
+
 var app = builder.Build();
+
+// ============================================================
+// SEED DEFAULT ROLES
+// ============================================================
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider
+        .GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new[]
+    {
+        "Student",
+        "Lecturer",
+        "Business",
+        "Admin"
+    };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(
+                new IdentityRole(role));
+        }
+    }
+}
+
+// ============================================================
+// HTTP REQUEST PIPELINE
+// ============================================================
 
 if (app.Environment.IsDevelopment())
 {
@@ -52,10 +154,12 @@ app.UseHttpsRedirection();
 app.UseCors("ClientPolicy");
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<StudentJobHub.Api.Hubs.NotificationHub>("/hubs/notifications");
+app.MapHub<StudentJobHub.Api.Hubs.NotificationHub>(
+    "/hubs/notifications");
 
 app.Run();

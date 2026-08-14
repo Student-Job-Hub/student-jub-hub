@@ -26,15 +26,6 @@ C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.Logging.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.Options.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Identity.Client.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Identity.Client.Broker.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Identity.Client.Extensions.Msal.dll
@@ -165,3 +156,5 @@ C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.pdb
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.genruntimeconfig.cache
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\ref\StudentJobHub.Tests.dll
+C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.sourcelink.json
