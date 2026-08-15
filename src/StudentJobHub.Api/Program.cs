@@ -70,6 +70,8 @@ builder.Services.AddAuthorization();
 // ============================================================
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ServiceService>();
+builder.Services.AddScoped<JobService>();
 
 // ============================================================
 // CONTROLLERS

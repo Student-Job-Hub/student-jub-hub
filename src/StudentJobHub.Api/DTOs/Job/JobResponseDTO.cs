@@ -1,24 +1,24 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace StudentJobHub.Api.DTOs.Jobs;
 
-public class CreateJobDto
+public class JobResponseDto
 {
-    [Required]
-    [StringLength(100)]
+    public int Id { get; set; }
+
     public string Title { get; set; } = string.Empty;
 
-    [Required]
-    [StringLength(1500)]
     public string Description { get; set; } = string.Empty;
 
-    [Required]
-    [StringLength(1000)]
     public string Requirements { get; set; } = string.Empty;
 
-    [Range(0.01, 1000000)]
     public decimal Budget { get; set; }
 
-    [Required]
     public DateTime Deadline { get; set; }
+
+    public string PostedById { get; set; } = string.Empty;
+
+    public string PostedByName { get; set; } = string.Empty;
+
+    public bool IsOpen { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 }
