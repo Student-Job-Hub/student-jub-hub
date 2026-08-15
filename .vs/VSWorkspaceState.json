@@ -3,12 +3,11 @@
     "",
     "\\src",
     "\\src\\StudentJobHub.Api",
-    "\\src\\StudentJobHub.Api\\DTOs",
-    "\\src\\StudentJobHub.Api\\DTOs\\Auth",
+    "\\src\\StudentJobHub.Api\\Controllers",
     "\\src\\StudentJobHub.Client",
     "\\src\\StudentJobHub.Client\\Components",
     "\\src\\StudentJobHub.Client\\wwwroot"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\src\\StudentJobHub.Api\\Controllers\\JobsController.cs",
   "PreviewInSolutionExplorer": false
 }
