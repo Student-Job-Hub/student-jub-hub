@@ -72,6 +72,9 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ServiceService>();
 builder.Services.AddScoped<JobService>();
+builder.Services.AddScoped<JobApplicationService>();
+builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<NotificationService>();
 
 // ============================================================
 // CONTROLLERS
