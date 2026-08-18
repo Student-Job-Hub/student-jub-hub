@@ -3,8 +3,10 @@
     "",
     "\\src",
     "\\src\\StudentJobHub.Api",
-    "\\src\\StudentJobHub.Api\\Services"
+    "\\src\\StudentJobHub.Api\\Services",
+    "\\src\\StudentJobHub.Client",
+    "\\src\\StudentJobHub.Client\\Components",
+    "\\src\\StudentJobHub.Client\\Models"
   ],
-  "SelectedNode": "\\src\\StudentJobHub.Api\\Services\\NotificationService.cs",
   "PreviewInSolutionExplorer": false
 }

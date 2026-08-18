@@ -97,10 +97,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTZXJ2aWNlc1xTZXJ2aWNlTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/USER/Downloads/StudentJobHub/src/StudentJobHub.Client/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/USER/Downloads/StudentJobHub/src/StudentJobHub.Client/Pages/CreateJob.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlSm9iLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -171,10 +167,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/USER/Downloads/StudentJobHub/src/StudentJobHub.Client/Pages/Services.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VydmljZXMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/USER/Downloads/StudentJobHub/src/StudentJobHub.Client/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/USER/Downloads/StudentJobHub/src/StudentJobHub.Client/_Imports.razor]
