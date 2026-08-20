@@ -14,5 +14,6 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 
 builder.Services.AddScoped<JobApiService>();
+builder.Services.AddScoped<ApplicationApiService>();
 
 await builder.Build().RunAsync();
