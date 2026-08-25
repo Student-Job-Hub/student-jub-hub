@@ -1116,6 +1116,7 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\qwri9mc09q-{0}-nxw7lo0lh5-nxw7lo0lh5.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\h7b4at82g6-{0}-zbexyp8zrs-zbexyp8zrs.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\5ydfb03v4a-{0}-bjx2ncbk0c-bjx2ncbk0c.gz
+<<<<<<< HEAD
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.f8onyqhpdq.wasm
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.4gyndv56sf.pdb
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\dotnet.7ca7ljrjv8.js
@@ -1126,3 +1127,15 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\ssmm03houd-{0}-4gyndv56sf-4gyndv56sf.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\1i4rkcr0c7-{0}-7ca7ljrjv8-7ca7ljrjv8.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\27dlw9px2o-{0}-0wy1woyz9b-0wy1woyz9b.gz
+=======
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.j7jgwqeb3u.wasm
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.pbqm1mw3xo.pdb
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\dotnet.k14olsvz60.js
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.j7jgwqeb3u.wasm.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.pbqm1mw3xo.pdb.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\dotnet.k14olsvz60.js.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\ka22vf18mm-{0}-j7jgwqeb3u-j7jgwqeb3u.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\ssmm03houd-{0}-pbqm1mw3xo-pbqm1mw3xo.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\1i4rkcr0c7-{0}-k14olsvz60-k14olsvz60.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\27dlw9px2o-{0}-2t8kqnbcyx-2t8kqnbcyx.gz
+>>>>>>> b6982e52abca959aea3959e74bc52ffc9c2afdd6

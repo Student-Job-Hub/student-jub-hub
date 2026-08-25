@@ -19,3 +19,10 @@ public class RegisterModel
 
     public string? University { get; set; }
 }
+
+public class AuthResponse
+{
+    public string Message { get; set; } = string.Empty;
+
+    public string? Token { get; set; }
+}
