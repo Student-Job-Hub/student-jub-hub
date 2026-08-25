@@ -8,12 +8,17 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient
-{
-    BaseAddress = new Uri("http://localhost:5205/")
-});
+// API URL
+var apiBaseUrl = "http://localhost:5205/";
 
+builder.Services.AddScoped(sp =>
+    new HttpClient
+    {
+        BaseAddress = new Uri(apiBaseUrl)
+    });
+
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<JobApiService>();
-builder.Services.AddScoped<ApplicationApiService>();
+builder.Services.AddScoped<AuthService>();
 
 await builder.Build().RunAsync();

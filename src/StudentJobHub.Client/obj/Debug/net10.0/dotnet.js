@@ -5,7 +5,7 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
   "mainAssemblyName": "StudentJobHub.Client",
   "applicationEnvironment": "Development",
   "resources": {
-    "hash": "sha256-Kh6uZxCRtGJFi1tnU/HlnnB+2wcrt9k83YfvsBnON08=",
+    "hash": "sha256-oPenjKW/TUQqfpMA70Zjrxa1wPiGiEoYfUFl/eb+DWw=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.vzj2a6aakt.js"
@@ -1242,16 +1242,16 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "StudentJobHub.Client.wasm",
-        "name": "StudentJobHub.Client.avgkii2h27.wasm",
-        "hash": "sha256-mjNWUEsCNf2GDvVaD1PlTL98piodUqyoYRk+UnACNkk=",
+        "name": "StudentJobHub.Client.j7jgwqeb3u.wasm",
+        "hash": "sha256-wdLwnJpFP3isncDYU471glTFPAAIP3IRHrjgE1o4/uk=",
         "cache": "force-cache"
       }
     ],
     "pdb": [
       {
         "virtualPath": "StudentJobHub.Client.pdb",
-        "name": "StudentJobHub.Client.tsxh9c8lku.pdb",
-        "hash": "sha256-Xd6ylfZO8ycybxOEAYwebWnZbzWqVrF8kzb5ZbNzDS0=",
+        "name": "StudentJobHub.Client.pbqm1mw3xo.pdb",
+        "hash": "sha256-O1iuHK3eMt+03p4KXcuKiOztuWckxwGyqcb3RagiUS8=",
         "cache": "force-cache"
       }
     ],
