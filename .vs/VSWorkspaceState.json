@@ -2,13 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\StudentJobHub.Api",
-    "\\src\\StudentJobHub.Api\\Controllers",
-    "\\src\\StudentJobHub.Api\\Models",
-    "\\src\\StudentJobHub.Api\\Services",
     "\\src\\StudentJobHub.Client",
     "\\src\\StudentJobHub.Client\\Components",
-    "\\src\\StudentJobHub.Client\\Models"
+    "\\src\\StudentJobHub.Client\\Models",
+    "\\src\\StudentJobHub.Client\\Pages",
+    "\\src\\StudentJobHub.Client\\Services"
   ],
   "PreviewInSolutionExplorer": false
 }
