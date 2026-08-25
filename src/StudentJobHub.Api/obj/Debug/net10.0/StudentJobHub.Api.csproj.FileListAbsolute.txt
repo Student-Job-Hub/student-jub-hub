@@ -10,6 +10,7 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Az
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Azure.Identity.dll
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Humanizer.dll
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
@@ -150,6 +151,7 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\St
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.csproj.CoreCompileInputs.cache
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.sourcelink.json
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
@@ -165,5 +167,3 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\re
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.pdb
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.genruntimeconfig.cache
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\ref\StudentJobHub.Api.dll
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Api\obj\Debug\net10.0\StudentJobHub.Api.sourcelink.json

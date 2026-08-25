@@ -37,10 +37,37 @@ public class JobService
                 "Failed to retrieve the created job.");
     }
 
+    // GET ALL JOBS
     public async Task<List<JobResponseDto>> GetAllAsync()
     {
         return await _context.Jobs
             .Include(j => j.PostedBy)
+            .OrderByDescending(j => j.CreatedAt)
+            .Select(j => new JobResponseDto
+            {
+                Id = j.Id,
+                Title = j.Title,
+                Description = j.Description,
+                Requirements = j.Requirements,
+                Budget = j.Budget,
+                Deadline = j.Deadline,
+                PostedById = j.PostedById,
+                PostedByName = j.PostedBy != null
+                    ? j.PostedBy.FullName
+                    : string.Empty,
+                IsOpen = j.IsOpen,
+                CreatedAt = j.CreatedAt
+            })
+            .ToListAsync();
+    }
+
+    // GET JOBS BELONGING TO CURRENT USER
+    public async Task<List<JobResponseDto>> GetMyJobsAsync(
+        string postedById)
+    {
+        return await _context.Jobs
+            .Include(j => j.PostedBy)
+            .Where(j => j.PostedById == postedById)
             .OrderByDescending(j => j.CreatedAt)
             .Select(j => new JobResponseDto
             {

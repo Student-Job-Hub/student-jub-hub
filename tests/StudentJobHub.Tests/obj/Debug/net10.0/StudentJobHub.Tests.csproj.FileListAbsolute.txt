@@ -17,6 +17,7 @@ C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Azure.Core.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Azure.Identity.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
@@ -150,11 +151,10 @@ C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.AssemblyInfoInputs.cache
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.AssemblyInfo.cs
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.csproj.CoreCompileInputs.cache
+C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.sourcelink.json
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJ.5F7FE8F6.Up2Date
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\refint\StudentJobHub.Tests.dll
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.pdb
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.genruntimeconfig.cache
 C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\ref\StudentJobHub.Tests.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-C:\Users\USER\Downloads\StudentJobHub\tests\StudentJobHub.Tests\obj\Debug\net10.0\StudentJobHub.Tests.sourcelink.json

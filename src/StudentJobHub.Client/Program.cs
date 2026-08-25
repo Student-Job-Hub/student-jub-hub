@@ -19,6 +19,6 @@ builder.Services.AddScoped(sp =>
 
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<JobApiService>();
-builder.Services.AddScoped<AuthService>();
+
 
 await builder.Build().RunAsync();
