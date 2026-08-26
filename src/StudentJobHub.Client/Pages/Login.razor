@@ -6,17 +6,17 @@
 @inject AuthService AuthService
 @inject NavigationManager Navigation
 
-<PageTitle>Login - Student Job Hub</PageTitle>
+<PageTitle>Login | Student Job Hub</PageTitle>
 
 <div class="auth-page">
     <div class="auth-card">
 
         <div class="auth-header">
             <h1>Welcome Back</h1>
-            <p>Login to your Student Job Hub account</p>
+            <p>Login to your Student Job Hub account.</p>
         </div>
 
-        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+        <EditForm Model="@model" OnValidSubmit="@HandleLogin">
             <DataAnnotationsValidator />
 
             <div class="form-group">
@@ -25,11 +25,10 @@
                 <InputText
                     id="email"
                     class="form-control"
-                    @bind-Value="loginModel.Email"
+                    @bind-Value="model.Email"
                     placeholder="Enter your email" />
 
-                <ValidationMessage
-                    For="@(() => loginModel.Email)" />
+                <ValidationMessage For="@(() => model.Email)" />
             </div>
 
             <div class="form-group">
@@ -39,16 +38,15 @@
                     id="password"
                     type="password"
                     class="form-control"
-                    @bind-Value="loginModel.Password"
+                    @bind-Value="model.Password"
                     placeholder="Enter your password" />
 
-                <ValidationMessage
-                    For="@(() => loginModel.Password)" />
+                <ValidationMessage For="@(() => model.Password)" />
             </div>
 
             @if (!string.IsNullOrWhiteSpace(errorMessage))
             {
-                <div class="error-message">
+                <div class="alert alert-danger">
                     @errorMessage
                 </div>
             }
@@ -63,28 +61,29 @@
         </EditForm>
 
         <div class="auth-footer">
-            <span>Don't have an account?</span>
-            <a href="/register">Create an account</a>
+            <p>
+                Don't have an account?
+                <a href="/register">Create one</a>
+            </p>
         </div>
 
     </div>
 </div>
 
 @code {
-    private LoginModel loginModel = new();
+    private LoginModel model = new();
 
     private bool isLoading;
-    private string errorMessage = string.Empty;
+    private string? errorMessage;
 
     private async Task HandleLogin()
     {
+        errorMessage = null;
         isLoading = true;
-        errorMessage = string.Empty;
 
         try
         {
-            var result =
-                await AuthService.LoginAsync(loginModel);
+            var result = await AuthService.LoginAsync(model);
 
             if (result == null)
             {
@@ -94,17 +93,15 @@
 
             if (string.IsNullOrWhiteSpace(result.Token))
             {
-                errorMessage =
-                    "Login succeeded, but no authentication token was returned.";
-
+                errorMessage = "Login succeeded, but no authentication token was returned.";
                 return;
             }
 
-            Navigation.NavigateTo("/dashboard");
+            Navigation.NavigateTo("/jobs");
         }
         catch (Exception ex)
         {
-            errorMessage = $"Login failed: {ex.Message}";
+            errorMessage = $"Unable to login: {ex.Message}";
         }
         finally
         {

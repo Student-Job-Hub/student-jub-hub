@@ -4,7 +4,8 @@
     "\\src",
     "\\src\\StudentJobHub.Api",
     "\\src\\StudentJobHub.Api\\Models",
-    "\\src\\StudentJobHub.Client"
+    "\\src\\StudentJobHub.Client",
+    "\\src\\StudentJobHub.Client\\Models"
   ],
   "PreviewInSolutionExplorer": false
 }
