@@ -1,0 +1,147 @@
+@page "/register"
+
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>Register - Student Job Hub</PageTitle>
+
+<div class="auth-page">
+    <div class="auth-card">
+
+        <div class="auth-header">
+            <h1>Create Account</h1>
+            <p>Join Student Job Hub</p>
+        </div>
+
+        <EditForm Model="@registerModel" OnValidSubmit="HandleRegister">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <InputText
+                    id="fullName"
+                    class="form-control"
+                    @bind-Value="registerModel.FullName"
+                    placeholder="Enter your full name" />
+                <ValidationMessage For="@(() => registerModel.FullName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <InputText
+                    id="email"
+                    class="form-control"
+                    @bind-Value="registerModel.Email"
+                    placeholder="Enter your email" />
+                <ValidationMessage For="@(() => registerModel.Email)" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <InputText
+                    id="password"
+                    type="password"
+                    class="form-control"
+                    @bind-Value="registerModel.Password"
+                    placeholder="Create a password" />
+                <ValidationMessage For="@(() => registerModel.Password)" />
+            </div>
+
+            <div class="form-group">
+                <label for="university">University</label>
+                <InputText
+                    id="university"
+                    class="form-control"
+                    @bind-Value="registerModel.University"
+                    placeholder="Enter your university" />
+            </div>
+
+            <div class="form-group">
+                <label for="role">Account Type</label>
+
+                <InputSelect
+                    id="role"
+                    class="form-control"
+                    @bind-Value="registerModel.Role">
+
+                    <option value="Student">Student</option>
+                    <option value="Lecturer">Lecturer</option>
+                    <option value="Business">Business</option>
+
+                </InputSelect>
+
+                <ValidationMessage For="@(() => registerModel.Role)" />
+            </div>
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="error-message">
+                    @errorMessage
+                </div>
+            }
+
+            <button
+                type="submit"
+                class="auth-button"
+                disabled="@isLoading">
+
+                @(isLoading ? "Creating account..." : "Create Account")
+            </button>
+        </EditForm>
+
+        <div class="auth-footer">
+            <span>Already have an account?</span>
+            <a href="/login">Login</a>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    private RegisterModel registerModel = new()
+    {
+        Role = "Student"
+    };
+
+    private bool isLoading;
+    private string errorMessage = string.Empty;
+
+    private async Task HandleRegister()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var result =
+                await AuthService.RegisterAsync(registerModel);
+
+            if (result == null)
+            {
+                errorMessage =
+                    "Registration failed. Please check your information.";
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(result.Token))
+            {
+                errorMessage =
+                    "Registration succeeded, but no authentication token was returned.";
+                return;
+            }
+
+            Navigation.NavigateTo("/dashboard");
+        }
+        catch (Exception ex)
+        {
+            errorMessage =
+                $"Registration failed: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}
