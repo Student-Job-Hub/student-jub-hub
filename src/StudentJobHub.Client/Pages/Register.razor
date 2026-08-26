@@ -2,6 +2,7 @@
 
 @using StudentJobHub.Client.Models
 @using StudentJobHub.Client.Services
+
 @inject AuthService AuthService
 @inject NavigationManager Navigation
 
@@ -20,37 +21,47 @@
 
             <div class="form-group">
                 <label for="fullName">Full Name</label>
+
                 <InputText
                     id="fullName"
                     class="form-control"
                     @bind-Value="registerModel.FullName"
                     placeholder="Enter your full name" />
-                <ValidationMessage For="@(() => registerModel.FullName)" />
+
+                <ValidationMessage
+                    For="@(() => registerModel.FullName)" />
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
+
                 <InputText
                     id="email"
                     class="form-control"
                     @bind-Value="registerModel.Email"
                     placeholder="Enter your email" />
-                <ValidationMessage For="@(() => registerModel.Email)" />
+
+                <ValidationMessage
+                    For="@(() => registerModel.Email)" />
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
+
                 <InputText
                     id="password"
                     type="password"
                     class="form-control"
                     @bind-Value="registerModel.Password"
                     placeholder="Create a password" />
-                <ValidationMessage For="@(() => registerModel.Password)" />
+
+                <ValidationMessage
+                    For="@(() => registerModel.Password)" />
             </div>
 
             <div class="form-group">
                 <label for="university">University</label>
+
                 <InputText
                     id="university"
                     class="form-control"
@@ -72,10 +83,11 @@
 
                 </InputSelect>
 
-                <ValidationMessage For="@(() => registerModel.Role)" />
+                <ValidationMessage
+                    For="@(() => registerModel.Role)" />
             </div>
 
-            @if (!string.IsNullOrEmpty(errorMessage))
+            @if (!string.IsNullOrWhiteSpace(errorMessage))
             {
                 <div class="error-message">
                     @errorMessage
@@ -87,7 +99,9 @@
                 class="auth-button"
                 disabled="@isLoading">
 
-                @(isLoading ? "Creating account..." : "Create Account")
+                @(isLoading
+                    ? "Creating account..."
+                    : "Create Account")
             </button>
         </EditForm>
 
@@ -122,6 +136,7 @@
             {
                 errorMessage =
                     "Registration failed. Please check your information.";
+
                 return;
             }
 
@@ -129,6 +144,7 @@
             {
                 errorMessage =
                     "Registration succeeded, but no authentication token was returned.";
+
                 return;
             }
 

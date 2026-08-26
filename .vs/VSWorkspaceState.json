@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\StudentJobHub.Api",
+    "\\src\\StudentJobHub.Api\\Models",
+    "\\src\\StudentJobHub.Client"
   ],
   "PreviewInSolutionExplorer": false
 }

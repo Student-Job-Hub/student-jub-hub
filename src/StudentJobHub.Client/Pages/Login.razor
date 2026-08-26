@@ -1,6 +1,8 @@
 @page "/login"
+
 @using StudentJobHub.Client.Models
 @using StudentJobHub.Client.Services
+
 @inject AuthService AuthService
 @inject NavigationManager Navigation
 
@@ -9,48 +11,51 @@
 <div class="auth-page">
     <div class="auth-card">
 
-        <h1>Welcome Back</h1>
-        <p class="auth-subtitle">
-            Sign in to your Student Job Hub account.
-        </p>
+        <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Login to your Student Job Hub account</p>
+        </div>
 
-        @if (!string.IsNullOrEmpty(errorMessage))
-        {
-            <div class="alert alert-danger">
-                @errorMessage
-            </div>
-        }
-
-        <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
             <DataAnnotationsValidator />
 
             <div class="form-group">
-                <label>Email</label>
+                <label for="email">Email</label>
 
                 <InputText
+                    id="email"
                     class="form-control"
                     @bind-Value="loginModel.Email"
-                    type="email" />
+                    placeholder="Enter your email" />
 
                 <ValidationMessage
                     For="@(() => loginModel.Email)" />
             </div>
 
             <div class="form-group">
-                <label>Password</label>
+                <label for="password">Password</label>
 
                 <InputText
+                    id="password"
+                    type="password"
                     class="form-control"
                     @bind-Value="loginModel.Password"
-                    type="password" />
+                    placeholder="Enter your password" />
 
                 <ValidationMessage
                     For="@(() => loginModel.Password)" />
             </div>
 
+            @if (!string.IsNullOrWhiteSpace(errorMessage))
+            {
+                <div class="error-message">
+                    @errorMessage
+                </div>
+            }
+
             <button
                 type="submit"
-                class="btn btn-primary w-100"
+                class="auth-button"
                 disabled="@isLoading">
 
                 @(isLoading ? "Logging in..." : "Login")
@@ -59,10 +64,7 @@
 
         <div class="auth-footer">
             <span>Don't have an account?</span>
-
-            <a href="/register">
-                Create one
-            </a>
+            <a href="/register">Create an account</a>
         </div>
 
     </div>
@@ -72,16 +74,17 @@
     private LoginModel loginModel = new();
 
     private bool isLoading;
-    private string? errorMessage;
+    private string errorMessage = string.Empty;
 
     private async Task HandleLogin()
     {
-        errorMessage = null;
         isLoading = true;
+        errorMessage = string.Empty;
 
         try
         {
-            var result = await AuthService.LoginAsync(loginModel);
+            var result =
+                await AuthService.LoginAsync(loginModel);
 
             if (result == null)
             {
@@ -91,12 +94,12 @@
 
             if (string.IsNullOrWhiteSpace(result.Token))
             {
-                errorMessage = "Login succeeded, but no authentication token was returned.";
+                errorMessage =
+                    "Login succeeded, but no authentication token was returned.";
+
                 return;
             }
 
-            // We will add persistent token storage next.
-            // For now, redirect after successful login.
             Navigation.NavigateTo("/dashboard");
         }
         catch (Exception ex)
