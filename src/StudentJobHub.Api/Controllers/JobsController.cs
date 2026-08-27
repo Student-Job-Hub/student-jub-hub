@@ -17,6 +17,15 @@ public class JobsController : ControllerBase
         _jobService = jobService;
     }
 
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetAll()
+    {
+        var jobs = await _jobService.GetAllAsync();
+
+        return Ok(jobs);
+    }
+
     [HttpGet("my")]
     [Authorize]
     public async Task<IActionResult> GetMyJobs()
