@@ -1,0 +1,120 @@
+@page "/post-job"
+
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@using System.Net
+
+@inject JobApiService JobApiService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Post a Job</PageTitle>
+
+<div class="post-job-page">
+
+    <div class="post-job-header">
+        <h1>Post a Job</h1>
+        <p>
+            Describe the job you need help with. Students on campus
+            will be able to view and apply for it.
+        </p>
+    </div>
+
+    <EditForm Model="@model" OnValidSubmit="HandleSubmitAsync" class="post-job-form">
+
+        <DataAnnotationsValidator />
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="error-card">
+                <p>@errorMessage</p>
+            </div>
+        }
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <InputText id="title" class="form-control" @bind-Value="model.Title" />
+            <ValidationMessage For="@(() => model.Title)" />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <InputTextArea id="description" class="form-control" rows="5"
+                            @bind-Value="model.Description" />
+            <ValidationMessage For="@(() => model.Description)" />
+        </div>
+
+        <div class="form-group">
+            <label for="requirements">Requirements</label>
+            <InputTextArea id="requirements" class="form-control" rows="3"
+                            @bind-Value="model.Requirements" />
+            <ValidationMessage For="@(() => model.Requirements)" />
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label for="budget">Budget (GH₵)</label>
+                <InputNumber id="budget" class="form-control" @bind-Value="model.Budget" />
+                <ValidationMessage For="@(() => model.Budget)" />
+            </div>
+
+            <div class="form-group">
+                <label for="deadline">Deadline</label>
+                <InputDate id="deadline" class="form-control" @bind-Value="model.Deadline" />
+                <ValidationMessage For="@(() => model.Deadline)" />
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+            <a href="/my-jobs" class="cancel-button">Cancel</a>
+            <button type="submit" class="post-job-button" disabled="@isSubmitting">
+                @(isSubmitting ? "Posting..." : "Post Job")
+            </button>
+        </div>
+
+    </EditForm>
+
+</div>
+
+@code {
+
+    private CreateJobModel model = new();
+
+    private bool isSubmitting = false;
+
+    private string? errorMessage;
+
+
+    private async Task HandleSubmitAsync()
+    {
+        isSubmitting = true;
+        errorMessage = null;
+
+        try
+        {
+            var response = await JobApiService.CreateAsync(model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("/my-jobs");
+            }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                errorMessage = "You must be logged in to post a job.";
+            }
+            else
+            {
+                errorMessage = "Something went wrong while posting your job. Please try again.";
+            }
+        }
+        catch (Exception)
+        {
+            errorMessage = "We could not connect to the Student Job Hub API.";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}

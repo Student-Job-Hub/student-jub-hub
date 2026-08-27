@@ -1,0 +1,204 @@
+@page "/my-jobs/edit/{Id:int}"
+
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@using System.Net
+
+@inject JobApiService JobApiService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit Job</PageTitle>
+
+<div class="post-job-page">
+
+    @if (isLoading)
+    {
+        <div class="loading-card">
+            <p>Loading job details...</p>
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(loadError))
+    {
+        <div class="error-card">
+            <h3>Unable to load this job</h3>
+            <p>@loadError</p>
+            <a href="/my-jobs" class="cancel-button">Back to My Jobs</a>
+        </div>
+    }
+    else
+    {
+        <div class="post-job-header">
+            <h1>Edit Job</h1>
+            <p>
+                Update the details of your job posting.
+            </p>
+        </div>
+
+        @if (!isJobOpen)
+        {
+            <div class="closed-notice">
+                This job is closed. Editing it will not reopen it to new applicants.
+            </div>
+        }
+
+        <EditForm Model="@model" OnValidSubmit="HandleSubmitAsync" class="post-job-form">
+
+            <DataAnnotationsValidator />
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="error-card">
+                    <p>@errorMessage</p>
+                </div>
+            }
+
+            <div class="form-group">
+                <label for="title">Title</label>
+                <InputText id="title" class="form-control" @bind-Value="model.Title" />
+                <ValidationMessage For="@(() => model.Title)" />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <InputTextArea id="description" class="form-control" rows="5"
+                                @bind-Value="model.Description" />
+                <ValidationMessage For="@(() => model.Description)" />
+            </div>
+
+            <div class="form-group">
+                <label for="requirements">Requirements</label>
+                <InputTextArea id="requirements" class="form-control" rows="3"
+                                @bind-Value="model.Requirements" />
+                <ValidationMessage For="@(() => model.Requirements)" />
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="budget">Budget (GH₵)</label>
+                    <InputNumber id="budget" class="form-control" @bind-Value="model.Budget" />
+                    <ValidationMessage For="@(() => model.Budget)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="deadline">Deadline</label>
+                    <InputDate id="deadline" class="form-control" @bind-Value="model.Deadline" />
+                    <ValidationMessage For="@(() => model.Deadline)" />
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <a href="/my-jobs" class="cancel-button">Cancel</a>
+                <button type="submit" class="post-job-button" disabled="@isSubmitting">
+                    @(isSubmitting ? "Saving..." : "Save Changes")
+                </button>
+            </div>
+
+        </EditForm>
+    }
+
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private CreateJobModel model = new();
+
+    private bool isJobOpen = true;
+
+    private bool isLoading = true;
+
+    private bool isSubmitting = false;
+
+    private string? loadError;
+
+    private string? errorMessage;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadJobAsync();
+    }
+
+
+    private async Task LoadJobAsync()
+    {
+        isLoading = true;
+        loadError = null;
+
+        try
+        {
+            var job = await JobApiService.GetByIdAsync(Id);
+
+            if (job is null)
+            {
+                loadError = "This job could not be found.";
+            }
+            else
+            {
+                isJobOpen = job.IsOpen;
+
+                model = new CreateJobModel
+                {
+                    Title = job.Title,
+                    Description = job.Description,
+                    Requirements = job.Requirements,
+                    Budget = job.Budget,
+                    Deadline = job.Deadline
+                };
+            }
+        }
+        catch (Exception)
+        {
+            loadError = "We could not connect to the Student Job Hub API.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+
+    private async Task HandleSubmitAsync()
+    {
+        isSubmitting = true;
+        errorMessage = null;
+
+        try
+        {
+            var response = await JobApiService.UpdateAsync(Id, model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("/my-jobs");
+            }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                errorMessage = "You must be logged in to edit this job.";
+            }
+            else if (response.StatusCode == HttpStatusCode.Forbidden)
+            {
+                errorMessage = "You do not have permission to edit this job.";
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                errorMessage = "This job no longer exists.";
+            }
+            else
+            {
+                errorMessage = "Something went wrong while saving your changes. Please try again.";
+            }
+        }
+        catch (Exception)
+        {
+            errorMessage = "We could not connect to the Student Job Hub API.";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}
