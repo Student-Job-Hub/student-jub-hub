@@ -15,6 +15,13 @@ public class JobApiService
     public async Task<List<JobModel>> GetAllAsync()
     {
         return await _httpClient.GetFromJsonAsync<List<JobModel>>(
+                   "api/Jobs")
+               ?? new List<JobModel>();
+    }
+
+    public async Task<List<JobModel>> GetMyJobsAsync()
+    {
+        return await _httpClient.GetFromJsonAsync<List<JobModel>>(
                    "api/Jobs/my")
                ?? new List<JobModel>();
     }

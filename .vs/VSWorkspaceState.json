@@ -3,9 +3,11 @@
     "",
     "\\src",
     "\\src\\StudentJobHub.Api",
-    "\\src\\StudentJobHub.Api\\Models",
+    "\\src\\StudentJobHub.Api\\DTOs",
+    "\\src\\StudentJobHub.Api\\Services",
     "\\src\\StudentJobHub.Client",
-    "\\src\\StudentJobHub.Client\\Models"
+    "\\src\\StudentJobHub.Client\\Services",
+    "\\src\\StudentJobHub.Client\\wwwroot"
   ],
   "PreviewInSolutionExplorer": false
 }

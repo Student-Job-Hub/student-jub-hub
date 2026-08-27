@@ -1,0 +1,174 @@
+@page "/my-jobs"
+
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+
+@inject JobApiService JobApiService
+
+<PageTitle>My Jobs</PageTitle>
+
+<div class="my-jobs-page">
+
+    <div class="my-jobs-header">
+
+        <div>
+            <h1>My Jobs</h1>
+
+            <p>
+                Manage the jobs you have posted on Student Job Hub.
+            </p>
+        </div>
+
+        <a href="/post-job" class="post-job-button">
+            + Post a Job
+        </a>
+
+    </div>
+
+
+    @if (isLoading)
+    {
+        <div class="loading-card">
+            <p>Loading your jobs...</p>
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-card">
+
+            <h3>Unable to load your jobs</h3>
+
+            <p>@errorMessage</p>
+
+            <button @onclick="LoadMyJobsAsync">
+                Try Again
+            </button>
+
+        </div>
+    }
+    else if (jobs.Count == 0)
+    {
+        <div class="empty-card">
+
+            <h2>You haven't posted any jobs yet.</h2>
+
+            <p>
+                Create your first job posting and start connecting
+                with students.
+            </p>
+
+            <a href="/post-job" class="post-job-button">
+                + Post Your First Job
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <div class="jobs-summary">
+            <strong>@jobs.Count</strong>
+            @(jobs.Count == 1 ? " job" : " jobs") posted
+        </div>
+
+        <div class="jobs-grid">
+
+            @foreach (var job in jobs)
+            {
+                <div class="job-card">
+
+                    <div class="job-card-header">
+
+                        <div>
+                            <h2>@job.Title</h2>
+
+                            <span class="job-status @(job.IsOpen ? "open" : "closed")">
+                                @(job.IsOpen ? "Open" : "Closed")
+                            </span>
+                        </div>
+
+                        <span class="job-budget">
+                            GH₵ @job.Budget.ToString("N2")
+                        </span>
+
+                    </div>
+
+                    <p class="job-description">
+                        @job.Description
+                    </p>
+
+                    <div class="job-details">
+
+                        <div>
+                            <strong>Deadline</strong>
+                            <span>
+                                @job.Deadline.ToString("MMM dd, yyyy")
+                            </span>
+                        </div>
+
+                        <div>
+                            <strong>Posted</strong>
+                            <span>
+                                @job.CreatedAt.ToString("MMM dd, yyyy")
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="job-actions">
+
+                        <a href="/jobs/@job.Id"
+                           class="view-button">
+                            View Details
+                        </a>
+
+                        <a href="/my-jobs/edit/@job.Id"
+                           class="edit-button">
+                            Edit
+                        </a>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
+
+
+@code {
+
+    private List<JobModel> jobs = new();
+
+    private bool isLoading = true;
+
+    private string? errorMessage;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadMyJobsAsync();
+    }
+
+
+    private async Task LoadMyJobsAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+
+        try
+        {
+            jobs = await JobApiService.GetMyJobsAsync();
+        }
+        catch (Exception)
+        {
+            errorMessage =
+                "We could not connect to the Student Job Hub API.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}
