@@ -4,7 +4,6 @@
     "\\src",
     "\\src\\StudentJobHub.Api",
     "\\src\\StudentJobHub.Api\\DTOs",
-    "\\src\\StudentJobHub.Api\\DTOs\\Services",
     "\\src\\StudentJobHub.Api\\Services",
     "\\src\\StudentJobHub.Client",
     "\\src\\StudentJobHub.Client\\Services",

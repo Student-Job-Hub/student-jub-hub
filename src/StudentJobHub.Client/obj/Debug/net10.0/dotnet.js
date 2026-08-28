@@ -5,7 +5,7 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
   "mainAssemblyName": "StudentJobHub.Client",
   "applicationEnvironment": "Development",
   "resources": {
-    "hash": "sha256-BSz0Bw+VuW1K6+vUnHiZDt4b464p1VWn8ktTSK4S4fc=",
+    "hash": "sha256-xgMTq+8FsqKFX23KF/m/DNHoOFY6Aj3tH9LLGkteb4c=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.vzj2a6aakt.js"
@@ -96,20 +96,20 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "Microsoft.Extensions.Configuration.wasm",
-        "name": "Microsoft.Extensions.Configuration.s6epnzhbd8.wasm",
-        "hash": "sha256-7DgCCV/LB2eNVzPeNmZ5m2thp6g2kVsit8sogYccXwQ=",
+        "name": "Microsoft.Extensions.Configuration.k3gsyevy27.wasm",
+        "hash": "sha256-gAo2vNKc6IguqLYysEBH6sm0iSchu3oGbYQ3Aq5PtSM=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.Configuration.Abstractions.wasm",
-        "name": "Microsoft.Extensions.Configuration.Abstractions.wa2ojg94fi.wasm",
-        "hash": "sha256-qOTZIeG9FsN1IhAycfVSHdCrxcSAjUo5paRUEfUJYhI=",
+        "name": "Microsoft.Extensions.Configuration.Abstractions.gydskqrdmp.wasm",
+        "hash": "sha256-qGEjY6VT2kt4ucUDReYxSt/AZBfFiBd5i7rkwP8WEFE=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.Configuration.Binder.wasm",
-        "name": "Microsoft.Extensions.Configuration.Binder.l7o5knh4f1.wasm",
-        "hash": "sha256-L5Yax0NPgj+DBfLt7lTLrH7RZVUZ/GeLukF9oyqJ7pU=",
+        "name": "Microsoft.Extensions.Configuration.Binder.jagglvwcdi.wasm",
+        "hash": "sha256-hTi+lsmFyO+ohu81RCsWT31+ymlbM74tJEDpvEuN/qE=",
         "cache": "force-cache"
       },
       {
@@ -126,26 +126,26 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "Microsoft.Extensions.DependencyInjection.wasm",
-        "name": "Microsoft.Extensions.DependencyInjection.nun950pku8.wasm",
-        "hash": "sha256-AWrVpqzFnmO0tCoEXAH0O7cE33X0Q6ZAa8lm5FRsMQs=",
+        "name": "Microsoft.Extensions.DependencyInjection.dpa1450tku.wasm",
+        "hash": "sha256-jxt6IZ6EWYrltHD5SctKq9exI4IgXFWN8HHCGTGXWBA=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.DependencyInjection.Abstractions.wasm",
-        "name": "Microsoft.Extensions.DependencyInjection.Abstractions.q6idsb19uh.wasm",
-        "hash": "sha256-rmpyVV0DOgiihi5oxsjrJb01S8m67/Z7tnu/auVgXRw=",
+        "name": "Microsoft.Extensions.DependencyInjection.Abstractions.woum050g24.wasm",
+        "hash": "sha256-IIfEv8464evpIZhWH9CEVKytwJjFayCOQNxwFMSzewg=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.Diagnostics.wasm",
-        "name": "Microsoft.Extensions.Diagnostics.f7zn8s1thp.wasm",
-        "hash": "sha256-BaaWcXtZnSfywb3RXJuUpPEO8cLvZvlVHj3RJ10hPi0=",
+        "name": "Microsoft.Extensions.Diagnostics.1jey3rxiy8.wasm",
+        "hash": "sha256-DT14V4vi9XUlFVFm3GmOzlxHBod9icve1tfVRr/16Dc=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.Diagnostics.Abstractions.wasm",
-        "name": "Microsoft.Extensions.Diagnostics.Abstractions.s62vewhs76.wasm",
-        "hash": "sha256-1HqPfTJfvXForO2lQylRMNXcKDMdF9iD4VZSdaAX5qk=",
+        "name": "Microsoft.Extensions.Diagnostics.Abstractions.fkr8no9xuy.wasm",
+        "hash": "sha256-cRs5WmY9zg24WDKu0SNxfrTJSAWbn8nvTV4rqWaMxnw=",
         "cache": "force-cache"
       },
       {
@@ -174,32 +174,32 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "Microsoft.Extensions.Logging.wasm",
-        "name": "Microsoft.Extensions.Logging.xispqyz68y.wasm",
-        "hash": "sha256-V9FEOzDldETmKyiW3FTnoHpCZ4AZvoexnPaEIr09WZE=",
+        "name": "Microsoft.Extensions.Logging.op9zaw9pvp.wasm",
+        "hash": "sha256-FEpTWBY+QUqwgBqB9uvDQO9eSFjq9S3rPQIaxVCVnaw=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.Logging.Abstractions.wasm",
-        "name": "Microsoft.Extensions.Logging.Abstractions.62zefycurg.wasm",
-        "hash": "sha256-/h+gE4OLQdh3yuKWe0r8/2Si4zxcgw/fbOrbjMlX/ys=",
+        "name": "Microsoft.Extensions.Logging.Abstractions.8weyptjtvc.wasm",
+        "hash": "sha256-6DzIf0hf+dxG6YyvkhCKRQplQmzo7XWuHH9ngbrlnDU=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.Options.wasm",
-        "name": "Microsoft.Extensions.Options.bs7sofzszu.wasm",
-        "hash": "sha256-a/pTUQjNwOxhBz/lZgqVyyTyXrbdvyuKnFNyaVNH0Z0=",
+        "name": "Microsoft.Extensions.Options.ldnbby568o.wasm",
+        "hash": "sha256-5zFrr6qDicK+jGfTglhuenZJfjcPRePRnMy7C6bhCZ0=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.Options.ConfigurationExtensions.wasm",
-        "name": "Microsoft.Extensions.Options.ConfigurationExtensions.i2sp1sqcbf.wasm",
-        "hash": "sha256-pnQwodkGYFmAdSWA6bpOdTxxgWZdqCkOlv0Ku086DvE=",
+        "name": "Microsoft.Extensions.Options.ConfigurationExtensions.oic5e9iprm.wasm",
+        "hash": "sha256-oMBQFO2V/s0C8K6axybP94kUSUYD9fXaYKkooTHJQ4o=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "Microsoft.Extensions.Primitives.wasm",
-        "name": "Microsoft.Extensions.Primitives.ub9q6nskn2.wasm",
-        "hash": "sha256-RgwNm087C7Ho0ns9NEvi/NHblJKJLGtNQvt9F9cpNrc=",
+        "name": "Microsoft.Extensions.Primitives.xoe0uq16op.wasm",
+        "hash": "sha256-n58JBASBWj2pbdb/VpoMiGC1xh+6OcVDccrku7x55Bg=",
         "cache": "force-cache"
       },
       {
@@ -1248,16 +1248,16 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "StudentJobHub.Client.wasm",
-        "name": "StudentJobHub.Client.4xeqwf1b50.wasm",
-        "hash": "sha256-+KWoqgIaofm2rbvD6D1osyJzuEeCpnxUZCmGaUxhnx8=",
+        "name": "StudentJobHub.Client.kq4cv8gxs0.wasm",
+        "hash": "sha256-BH405MDM2P3XdBaXBziD9LmwuXqQG3W6KxaMKjtSpzY=",
         "cache": "force-cache"
       }
     ],
     "pdb": [
       {
         "virtualPath": "StudentJobHub.Client.pdb",
-        "name": "StudentJobHub.Client.4yhw7q2jao.pdb",
-        "hash": "sha256-JO4Z8WSfKjmtGPA9F2nnpsfHNZIFtwQauDIzL6l9OWo=",
+        "name": "StudentJobHub.Client.72rkak7l4e.pdb",
+        "hash": "sha256-/4/0F5Qoc9k9xn8JBrlbA/OFCpDGup+Bn660PstzTCE=",
         "cache": "force-cache"
       }
     ],

@@ -17,6 +17,8 @@ public class JwtAuthorizationHandler : DelegatingHandler
     {
         var token = _authService.Token;
 
+        Console.WriteLine($"[JwtAuthorizationHandler] Token is: {(string.IsNullOrWhiteSpace(token) ? "NULL/EMPTY" : "present, length " + token.Length)}");
+
         if (!string.IsNullOrWhiteSpace(token))
         {
             request.Headers.Authorization =
