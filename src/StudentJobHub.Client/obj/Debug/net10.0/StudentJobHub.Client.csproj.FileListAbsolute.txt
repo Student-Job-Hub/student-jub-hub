@@ -208,9 +208,6 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\icudt_EFIGS.tptq2av103.dat
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\icudt_no_CJK.lfu7j35m59.dat
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\Microsoft.DotNet.HotReload.WebAssembly.Browser.jiityjz7hu.wasm
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.kq4cv8gxs0.wasm
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.72rkak7l4e.pdb
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\dotnet.fhtogac0ql.js
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\blazor.webassembly.958z1vx7fr.js.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\Microsoft.AspNetCore.Authorization.wp5b4xwrtz.wasm.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\Microsoft.AspNetCore.Components.4payhwuyuh.wasm.gz
@@ -420,9 +417,6 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\icudt_EFIGS.tptq2av103.dat.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\icudt_no_CJK.lfu7j35m59.dat.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\Microsoft.DotNet.HotReload.WebAssembly.Browser.jiityjz7hu.wasm.gz
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.kq4cv8gxs0.wasm.gz
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.72rkak7l4e.pdb.gz
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\dotnet.fhtogac0ql.js.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\StudentJobHub.Client.staticwebassets.runtime.json
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\StudentJobHub.Client.staticwebassets.endpoints.json
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\StudentJobHub.Client.dll
@@ -1118,10 +1112,6 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\74huwl6aan-{0}-tptq2av103-tptq2av103.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\ygyi0wgpv6-{0}-lfu7j35m59-lfu7j35m59.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\dh2b96mgd2-{0}-jiityjz7hu-jiityjz7hu.gz
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\ka22vf18mm-{0}-kq4cv8gxs0-kq4cv8gxs0.gz
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\ssmm03houd-{0}-72rkak7l4e-72rkak7l4e.gz
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\1i4rkcr0c7-{0}-fhtogac0ql-fhtogac0ql.gz
-C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\27dlw9px2o-{0}-u5w4b5ftbh-u5w4b5ftbh.gz
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\staticwebassets.development.json
@@ -1132,3 +1122,13 @@ C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\refint\StudentJobHub.Client.dll
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\StudentJobHub.Client.pdb
 C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\ref\StudentJobHub.Client.dll
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.o3ek9ua39q.wasm
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.x1nsrl6mhx.pdb
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\dotnet.yi5szm69it.js
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.o3ek9ua39q.wasm.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\StudentJobHub.Client.x1nsrl6mhx.pdb.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\bin\Debug\net10.0\wwwroot\_framework\dotnet.yi5szm69it.js.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\ka22vf18mm-{0}-o3ek9ua39q-o3ek9ua39q.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\ssmm03houd-{0}-x1nsrl6mhx-x1nsrl6mhx.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\1i4rkcr0c7-{0}-yi5szm69it-yi5szm69it.gz
+C:\Users\USER\Downloads\StudentJobHub\src\StudentJobHub.Client\obj\Debug\net10.0\compressed\27dlw9px2o-{0}-1n0it3vtiw-1n0it3vtiw.gz
