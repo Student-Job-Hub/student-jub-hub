@@ -1,0 +1,84 @@
+@page "/create-service"
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@inject ServiceApiService ServiceApiService
+@inject NavigationManager Navigation
+
+<PageTitle>Create Service | Student Job Hub</PageTitle>
+
+<div class="page-container">
+    <h1>Post a Service</h1>
+    <EditForm Model="@model" OnValidSubmit="HandleSubmitAsync">
+        <DataAnnotationsValidator />
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="error-message">@errorMessage</div>
+        }
+
+        <div class="form-group">
+            <label>Title</label>
+            <InputText class="form-control" @bind-Value="model.Title" />
+            <ValidationMessage For="@(() => model.Title)" />
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <InputText class="form-control" @bind-Value="model.Category" />
+            <ValidationMessage For="@(() => model.Category)" />
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <InputTextArea class="form-control" @bind-Value="model.Description" />
+            <ValidationMessage For="@(() => model.Description)" />
+        </div>
+
+        <div class="form-group">
+            <label>Price (GH₵)</label>
+            <InputNumber class="form-control" @bind-Value="model.Price" />
+            <ValidationMessage For="@(() => model.Price)" />
+        </div>
+
+        <button type="submit" class="primary-button" disabled="@isSubmitting">
+            @(isSubmitting ? "Posting..." : "Post Service")
+        </button>
+    </EditForm>
+</div>
+
+@code {
+    private CreateServiceModel model = new();
+    private bool isSubmitting;
+    private string? errorMessage;
+
+    private async Task HandleSubmitAsync()
+    {
+        isSubmitting = true;
+        errorMessage = null;
+
+        try
+        {
+            var response = await ServiceApiService.CreateAsync(model);
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/services");
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                errorMessage = "You must be logged in to post a service.";
+            }
+            else
+            {
+                errorMessage = "Unable to create the service.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to create the service: {ex.Message}";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}

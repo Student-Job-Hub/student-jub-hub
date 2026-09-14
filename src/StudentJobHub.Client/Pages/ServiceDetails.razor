@@ -1,0 +1,62 @@
+@page "/services/{Id:int}"
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@inject ServiceApiService ServiceApiService
+
+<PageTitle>Service Details | Student Job Hub</PageTitle>
+
+<div class="page-container">
+    @if (isLoading)
+    {
+        <div class="loading-state">Loading service details...</div>
+    }
+    else if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-state">
+            <h2>Unable to load service</h2>
+            <p>@errorMessage</p>
+        </div>
+    }
+    else if (service is null)
+    {
+        <div class="empty-state">
+            <h2>Service not found</h2>
+        </div>
+    }
+    else
+    {
+        <div class="service-card">
+            <h1>@service.Title</h1>
+            <p class="badge">@service.Category</p>
+            <p>@service.Description</p>
+            <div class="meta">
+                <strong>GH₵ @service.Price.ToString("N2")</strong>
+                <span>Posted by @service.ProviderName</span>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    private ServiceModel? service;
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            service = await ServiceApiService.GetByIdAsync(Id);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to load service: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

@@ -1,0 +1,88 @@
+@page "/services"
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@inject ServiceApiService ServiceApiService
+
+<PageTitle>Services | Student Job Hub</PageTitle>
+
+<div class="services-page">
+    <div class="page-header">
+        <div>
+            <h1>Services Marketplace</h1>
+            <p>Find campus services and skills posted by members.</p>
+        </div>
+        <a href="/create-service" class="primary-button">Post a Service</a>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="loading-state">Loading services...</div>
+    }
+    else if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-state">
+            <h2>Unable to load services</h2>
+            <p>@errorMessage</p>
+            <button @onclick="LoadServicesAsync">Try Again</button>
+        </div>
+    }
+    else if (services.Count == 0)
+    {
+        <div class="empty-state">
+            <h2>No services available</h2>
+            <p>There are no services posted yet.</p>
+        </div>
+    }
+    else
+    {
+        <div class="services-grid">
+            @foreach (var service in services)
+            {
+                <div class="service-card">
+                    <div class="service-header">
+                        <h2>@service.Title</h2>
+                        <span class="badge">@service.Category</span>
+                    </div>
+                    <p>@service.Description</p>
+                    <div class="meta">
+                        <strong>GH₵ @service.Price.ToString("N2")</strong>
+                        <span>By @service.ProviderName</span>
+                    </div>
+                    <div class="actions">
+                        <a href="/services/@service.Id" class="secondary-button">View Details</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<ServiceModel> services = new();
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadServicesAsync();
+    }
+
+    private async Task LoadServicesAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+
+        try
+        {
+            services = await ServiceApiService.GetAllAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to load services: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

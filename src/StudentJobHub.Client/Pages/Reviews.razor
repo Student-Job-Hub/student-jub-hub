@@ -1,0 +1,73 @@
+@page "/reviews"
+@page "/reviews/{UserId}"
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@inject ReviewApiService ReviewApiService
+
+<PageTitle>Reviews | Student Job Hub</PageTitle>
+
+<div class="page-container">
+	<h1>Reviews</h1>
+	@if (string.IsNullOrWhiteSpace(UserId))
+	{
+		<div class="empty-state">
+			<p>Open a user's review link to view their reviews.</p>
+		</div>
+	}
+	else if (isLoading)
+	{
+		<div class="loading-state">Loading reviews...</div>
+	}
+	else if (!string.IsNullOrEmpty(errorMessage))
+	{
+		<div class="error-state"><p>@errorMessage</p></div>
+	}
+	else if (reviews.Count == 0)
+	{
+		<div class="empty-state"><p>No reviews have been posted yet.</p></div>
+	}
+	else
+	{
+		<div class="reviews-list">
+			@foreach (var review in reviews)
+			{
+				<article class="review-card">
+					<h2>@review.Rating / 5</h2>
+					<p>@review.Comment</p>
+					<small>By @review.ReviewerName on @review.CreatedAt.ToString("dd MMM yyyy")</small>
+				</article>
+			}
+		</div>
+	}
+</div>
+
+@code {
+	[Parameter] public string? UserId { get; set; }
+
+	private List<ReviewModel> reviews = new();
+	private bool isLoading;
+	private string? errorMessage;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		if (string.IsNullOrWhiteSpace(UserId))
+		{
+			return;
+		}
+
+		isLoading = true;
+		errorMessage = null;
+		try
+		{
+			reviews = await ReviewApiService.GetUserReviewsAsync(UserId);
+		}
+		catch (Exception ex)
+		{
+			errorMessage = $"Unable to load reviews: {ex.Message}";
+		}
+		finally
+		{
+			isLoading = false;
+		}
+	}
+}

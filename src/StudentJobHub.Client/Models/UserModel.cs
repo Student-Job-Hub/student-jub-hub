@@ -13,4 +13,17 @@ public class UserModel
     public string? Bio { get; set; }
 
     public string? University { get; set; }
+
+    public List<string> Roles { get; set; } = new();
+}
+
+public class UpdateProfileModel
+{
+    public string? FullName { get; set; }
+
+    public string? University { get; set; }
+
+    public string? Bio { get; set; }
+
+    public string? ProfilePictureUrl { get; set; }
 }

@@ -1,0 +1,118 @@
+@page "/my-jobs/{JobId:int}/applications"
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@inject ApplicationApiService ApplicationService
+@inject JobApiService JobService
+
+<PageTitle>Job Applications | Student Job Hub</PageTitle>
+
+<div class="page-container">
+    <a href="/my-jobs">Back to My Jobs</a>
+    <h1>Applications</h1>
+
+    @if (isLoading)
+    {
+        <div class="loading-state">Loading applications...</div>
+    }
+    else if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-state"><p>@errorMessage</p></div>
+    }
+    else if (applications.Count == 0)
+    {
+        <div class="empty-state"><p>No applications have been submitted for this job.</p></div>
+    }
+    else
+    {
+        <div class="applications-list">
+            @foreach (var application in applications)
+            {
+                <article class="application-card">
+                    <div class="application-header">
+                        <div>
+                            <h2>@application.ApplicantName</h2>
+                            <p>Applied @application.AppliedAt.ToString("dd MMM yyyy")</p>
+                        </div>
+                        <span>@application.Status</span>
+                    </div>
+                    <p>@application.Message</p>
+                    <div class="application-actions">
+                        <button @onclick="() => AcceptAsync(application)"
+                                disabled="@IsUpdating(application.Id)">Accept</button>
+                        <button @onclick="() => RejectAsync(application)"
+                                disabled="@IsUpdating(application.Id)">Reject</button>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int JobId { get; set; }
+
+    private List<ApplicationModel> applications = new();
+    private bool isLoading = true;
+    private string? errorMessage;
+    private int? updatingApplicationId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var job = await JobService.GetByIdAsync(JobId);
+            applications = await ApplicationService.GetJobApplicationsAsync(JobId);
+            if (job is null)
+            {
+                errorMessage = "The job could not be found.";
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            errorMessage = $"Unable to load applications: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private bool IsUpdating(int applicationId) => updatingApplicationId == applicationId;
+
+    private Task AcceptAsync(ApplicationModel application) =>
+        UpdateStatusAsync(application, "Accepted");
+
+    private Task RejectAsync(ApplicationModel application) =>
+        UpdateStatusAsync(application, "Rejected");
+
+    private async Task UpdateStatusAsync(ApplicationModel application, string status)
+    {
+        updatingApplicationId = application.Id;
+        errorMessage = null;
+        try
+        {
+            var response = await ApplicationService.UpdateStatusAsync(
+                application.Id,
+                new UpdateApplicationStatusModel { Status = status });
+
+            if (response.IsSuccessStatusCode)
+            {
+                application.Status = status;
+            }
+            else
+            {
+                errorMessage = response.StatusCode == System.Net.HttpStatusCode.Forbidden
+                    ? "You are not authorized to update this application."
+                    : "Unable to update the application status.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            updatingApplicationId = null;
+        }
+    }
+}
