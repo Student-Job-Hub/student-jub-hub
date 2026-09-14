@@ -3,6 +3,7 @@
 @using StudentJobHub.Client.Models
 @using StudentJobHub.Client.Services
 @inject ReviewApiService ReviewApiService
+@inject AuthService AuthService
 
 <PageTitle>Reviews | Student Job Hub</PageTitle>
 
@@ -29,6 +30,32 @@
 	else
 	{
 		<div class="reviews-list">
+
+	@if (!string.IsNullOrWhiteSpace(UserId) && AuthService.IsLoggedIn)
+	{
+		<section class="review-form">
+			<h2>Leave a Review</h2>
+			<EditForm Model="@newReview" OnValidSubmit="CreateReviewAsync">
+				<DataAnnotationsValidator />
+				<div class="form-group">
+					<label for="rating">Rating</label>
+					<InputNumber id="rating" class="form-control" @bind-Value="newReview.Rating" />
+					<ValidationMessage For="@(() => newReview.Rating)" />
+				</div>
+				<div class="form-group">
+					<label for="comment">Comment</label>
+					<InputTextArea id="comment" class="form-control" @bind-Value="newReview.Comment" rows="4" />
+				</div>
+				@if (!string.IsNullOrEmpty(createError))
+				{
+					<p class="error-state">@createError</p>
+				}
+				<button type="submit" class="primary-button" disabled="@isCreating">
+					@(isCreating ? "Submitting..." : "Submit Review")
+				</button>
+			</EditForm>
+		</section>
+	}
 			@foreach (var review in reviews)
 			{
 				<article class="review-card">
@@ -45,8 +72,11 @@
 	[Parameter] public string? UserId { get; set; }
 
 	private List<ReviewModel> reviews = new();
+	private CreateReviewModel newReview = new();
 	private bool isLoading;
+	private bool isCreating;
 	private string? errorMessage;
+	private string? createError;
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -68,6 +98,41 @@
 		finally
 		{
 			isLoading = false;
+		}
+	}
+
+	private async Task CreateReviewAsync()
+	{
+		if (newReview.Rating is < 1 or > 5)
+		{
+			createError = "Rating must be between 1 and 5.";
+			return;
+		}
+
+		isCreating = true;
+		createError = null;
+		newReview.RevieweeId = UserId!;
+
+		try
+		{
+			var response = await ReviewApiService.CreateAsync(newReview);
+			if (response.IsSuccessStatusCode)
+			{
+				newReview = new CreateReviewModel();
+				await OnParametersSetAsync();
+			}
+			else
+			{
+				createError = await response.Content.ReadAsStringAsync();
+			}
+		}
+		catch (Exception ex)
+		{
+			createError = $"Unable to submit review: {ex.Message}";
+		}
+		finally
+		{
+			isCreating = false;
 		}
 	}
 }
