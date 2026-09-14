@@ -28,6 +28,22 @@ public class ApplicationApiService
             ?? new List<ApplicationModel>();
     }
 
+    public async Task<List<ApplicationModel>> GetJobApplicationsAsync(int jobId)
+    {
+        return await _httpClient.GetFromJsonAsync<List<ApplicationModel>>(
+            $"api/applications/job/{jobId}")
+            ?? new List<ApplicationModel>();
+    }
+
+    public async Task<HttpResponseMessage> UpdateStatusAsync(
+        int id,
+        UpdateApplicationStatusModel model)
+    {
+        return await _httpClient.PatchAsJsonAsync(
+            $"api/applications/{id}/status",
+            model);
+    }
+
     public async Task<ApplicationModel?> GetByIdAsync(int id)
     {
         return await _httpClient.GetFromJsonAsync<ApplicationModel>(
