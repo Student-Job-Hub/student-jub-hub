@@ -18,3 +18,12 @@ public class ReviewModel
 
     public DateTime CreatedAt { get; set; }
 }
+
+public class CreateReviewModel
+{
+    public string RevieweeId { get; set; } = string.Empty;
+
+    public int Rating { get; set; }
+
+    public string Comment { get; set; } = string.Empty;
+}
