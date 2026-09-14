@@ -131,6 +131,21 @@
                             Applications
                         </a>
 
+                        @if (job.IsOpen)
+                        {
+                            <button class="edit-button"
+                                    @onclick="() => CloseJobAsync(job.Id)"
+                                    disabled="@IsBusy(job.Id)">
+                                @(IsBusy(job.Id) ? "Closing..." : "Close")
+                            </button>
+                        }
+
+                        <button class="delete-button"
+                                @onclick="() => DeleteJobAsync(job.Id)"
+                                disabled="@IsBusy(job.Id)">
+                            @(IsBusy(job.Id) ? "Working..." : "Delete")
+                        </button>
+
                     </div>
 
                 </div>
@@ -149,6 +164,7 @@
     private bool isLoading = true;
 
     private string? errorMessage;
+    private int? busyJobId;
 
 
     protected override async Task OnInitializedAsync()
@@ -174,6 +190,70 @@
         finally
         {
             isLoading = false;
+        }
+    }
+
+    private bool IsBusy(int jobId) => busyJobId == jobId;
+
+    private async Task CloseJobAsync(int jobId)
+    {
+        busyJobId = jobId;
+        errorMessage = null;
+
+        try
+        {
+            var response = await JobApiService.CloseAsync(jobId);
+            if (response.IsSuccessStatusCode)
+            {
+                var job = jobs.FirstOrDefault(item => item.Id == jobId);
+                if (job != null)
+                {
+                    job.IsOpen = false;
+                }
+            }
+            else
+            {
+                errorMessage = response.StatusCode == System.Net.HttpStatusCode.Unauthorized
+                    ? "You must be logged in to close a job."
+                    : "Unable to close this job.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to close this job: {ex.Message}";
+        }
+        finally
+        {
+            busyJobId = null;
+        }
+    }
+
+    private async Task DeleteJobAsync(int jobId)
+    {
+        busyJobId = jobId;
+        errorMessage = null;
+
+        try
+        {
+            var response = await JobApiService.DeleteAsync(jobId);
+            if (response.IsSuccessStatusCode)
+            {
+                jobs.RemoveAll(item => item.Id == jobId);
+            }
+            else
+            {
+                errorMessage = response.StatusCode == System.Net.HttpStatusCode.Unauthorized
+                    ? "You must be logged in to delete a job."
+                    : "Unable to delete this job.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to delete this job: {ex.Message}";
+        }
+        finally
+        {
+            busyJobId = null;
         }
     }
 }

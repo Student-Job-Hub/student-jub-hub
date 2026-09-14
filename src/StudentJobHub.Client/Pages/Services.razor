@@ -2,6 +2,8 @@
 @using StudentJobHub.Client.Models
 @using StudentJobHub.Client.Services
 @inject ServiceApiService ServiceApiService
+@inject UserApiService UserApiService
+@inject AuthService AuthService
 
 <PageTitle>Services | Student Job Hub</PageTitle>
 
@@ -50,6 +52,15 @@
                     </div>
                     <div class="actions">
                         <a href="/services/@service.Id" class="secondary-button">View Details</a>
+                        @if (IsOwner(service))
+                        {
+                            <a href="/services/edit/@service.Id" class="secondary-button">Edit</a>
+                            <button class="danger-button"
+                                    @onclick="() => DeleteServiceAsync(service.Id)"
+                                    disabled="@IsDeleting(service.Id)">
+                                @(IsDeleting(service.Id) ? "Deleting..." : "Delete")
+                            </button>
+                        }
                     </div>
                 </div>
             }
@@ -61,6 +72,8 @@
     private List<ServiceModel> services = new();
     private bool isLoading = true;
     private string? errorMessage;
+    private string? currentUserId;
+    private int? deletingServiceId;
 
     protected override async Task OnInitializedAsync()
     {
@@ -75,6 +88,12 @@
         try
         {
             services = await ServiceApiService.GetAllAsync();
+
+            if (AuthService.IsLoggedIn)
+            {
+                var currentUser = await UserApiService.GetCurrentUserAsync();
+                currentUserId = currentUser?.Id;
+            }
         }
         catch (Exception ex)
         {
@@ -83,6 +102,41 @@
         finally
         {
             isLoading = false;
+        }
+    }
+
+    private bool IsOwner(ServiceModel service) =>
+        !string.IsNullOrWhiteSpace(currentUserId) &&
+        service.ProviderId == currentUserId;
+
+    private bool IsDeleting(int serviceId) => deletingServiceId == serviceId;
+
+    private async Task DeleteServiceAsync(int serviceId)
+    {
+        deletingServiceId = serviceId;
+        errorMessage = null;
+
+        try
+        {
+            var response = await ServiceApiService.DeleteAsync(serviceId);
+            if (response.IsSuccessStatusCode)
+            {
+                services.RemoveAll(service => service.Id == serviceId);
+            }
+            else
+            {
+                errorMessage = response.StatusCode == System.Net.HttpStatusCode.Unauthorized
+                    ? "You must be logged in to delete a service."
+                    : "Unable to delete this service.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to delete this service: {ex.Message}";
+        }
+        finally
+        {
+            deletingServiceId = null;
         }
     }
 }
