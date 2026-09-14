@@ -1,0 +1,112 @@
+@page "/notifications"
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@inject NotificationService NotificationService
+
+<PageTitle>Notifications | Student Job Hub</PageTitle>
+
+<div class="notifications-page">
+    @if (isLoading)
+    {
+        <div class="loading-state">Loading notifications...</div>
+    }
+    else if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-state">
+            <h2>Unable to load notifications</h2>
+            <p>@errorMessage</p>
+            <button @onclick="LoadNotificationsAsync">Try Again</button>
+        </div>
+    }
+    else if (notifications.Count == 0)
+    {
+        <div class="empty-state">
+            <h2>No notifications</h2>
+            <p>You do not have any notifications yet.</p>
+        </div>
+    }
+    else
+    {
+        <div class="notifications-list">
+            @foreach (var notification in notifications)
+            {
+                <div class="notification-item @(notification.IsRead ? "read" : "unread")">
+                    <div>
+                        <p>@notification.Message</p>
+                        <small>@notification.CreatedAt.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</small>
+                    </div>
+                    <div class="notification-actions">
+                        @if (!notification.IsRead)
+                        {
+                            <button class="secondary-button" @onclick="() => MarkAsReadAsync(notification.Id)">Mark read</button>
+                        }
+                        <button class="danger-button" @onclick="() => DeleteAsync(notification.Id)">Delete</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<NotificationModel> notifications = new();
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadNotificationsAsync();
+    }
+
+    private async Task LoadNotificationsAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+
+        try
+        {
+            notifications = await NotificationService.GetNotificationsAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to load notifications: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task MarkAsReadAsync(int id)
+    {
+        try
+        {
+            var response = await NotificationService.MarkAsReadAsync(id);
+            if (response.IsSuccessStatusCode)
+            {
+                var item = notifications.FirstOrDefault(n => n.Id == id);
+                if (item != null) item.IsRead = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to mark notification as read: {ex.Message}";
+        }
+    }
+
+    private async Task DeleteAsync(int id)
+    {
+        try
+        {
+            var response = await NotificationService.DeleteAsync(id);
+            if (response.IsSuccessStatusCode)
+            {
+                notifications.RemoveAll(n => n.Id == id);
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Unable to delete notification: {ex.Message}";
+        }
+    }
+}
