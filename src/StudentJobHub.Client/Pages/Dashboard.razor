@@ -1,6 +1,9 @@
 @page "/dashboard"
 @inject JobApiService JobService
 @inject AuthService AuthService
+@inject ApplicationApiService ApplicationService
+@inject ServiceApiService ServiceApiService
+@inject NotificationService NotificationService
 @using StudentJobHub.Client
 @using StudentJobHub.Client.Layout
 @using StudentJobHub.Client.Models
@@ -56,7 +59,7 @@
                 <div class="stat-icon">📋</div>
 
                 <div>
-                    <h3>0</h3>
+                    <h3>@applicationCount</h3>
                     <p>My Applications</p>
                 </div>
             </div>
@@ -65,8 +68,8 @@
                 <div class="stat-icon">⭐</div>
 
                 <div>
-                    <h3>0</h3>
-                    <p>My Services</p>
+                    <h3>@serviceCount</h3>
+                    <p>Available Services</p>
                 </div>
             </div>
 
@@ -74,7 +77,7 @@
                 <div class="stat-icon">🔔</div>
 
                 <div>
-                    <h3>0</h3>
+                    <h3>@unreadNotificationCount</h3>
                     <p>Notifications</p>
                 </div>
             </div>
@@ -423,6 +426,9 @@
 @code {
 
     private List<JobModel> jobs = new();
+    private int applicationCount;
+    private int serviceCount;
+    private int unreadNotificationCount;
 
     private bool isLoading = true;
 
@@ -433,6 +439,19 @@
         try
         {
             jobs = await JobService.GetAllAsync();
+
+            if (AuthService.IsLoggedIn)
+            {
+                var applicationsTask = ApplicationService.GetMyApplicationsAsync();
+                var servicesTask = ServiceApiService.GetAllAsync();
+                var notificationsTask = NotificationService.GetNotificationsAsync();
+
+                await Task.WhenAll(applicationsTask, servicesTask, notificationsTask);
+
+                applicationCount = applicationsTask.Result.Count;
+                serviceCount = servicesTask.Result.Count;
+                unreadNotificationCount = notificationsTask.Result.Count(notification => !notification.IsRead);
+            }
         }
         catch (Exception ex)
         {
