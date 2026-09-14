@@ -41,6 +41,26 @@ builder.Services.AddScoped<ApplicationApiService>(sp =>
         sp.GetRequiredService<IHttpClientFactory>()
             .CreateClient("AuthorizedClient")));
 
+builder.Services.AddScoped<ServiceApiService>(sp =>
+    new ServiceApiService(
+        sp.GetRequiredService<IHttpClientFactory>()
+            .CreateClient("AuthorizedClient")));
+
+builder.Services.AddScoped<ReviewApiService>(sp =>
+    new ReviewApiService(
+        sp.GetRequiredService<IHttpClientFactory>()
+            .CreateClient("AuthorizedClient")));
+
+builder.Services.AddScoped<NotificationService>(sp =>
+    new NotificationService(
+        sp.GetRequiredService<IHttpClientFactory>()
+            .CreateClient("AuthorizedClient")));
+
+builder.Services.AddScoped<UserApiService>(sp =>
+    new UserApiService(
+        sp.GetRequiredService<IHttpClientFactory>()
+            .CreateClient("AuthorizedClient")));
+
 var host = builder.Build();
 
 // Restore JWT from localStorage
