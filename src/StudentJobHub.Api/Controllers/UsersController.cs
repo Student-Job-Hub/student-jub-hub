@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +9,11 @@ namespace StudentJobHub.Api.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class UserController : ControllerBase
+public class UsersController : ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public UserController(
-        UserManager<ApplicationUser> userManager)
+    public UsersController(UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
     }
@@ -21,8 +21,7 @@ public class UserController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetCurrentUser()
     {
-        var userId = User.FindFirst(
-            System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (string.IsNullOrEmpty(userId))
         {
@@ -33,7 +32,7 @@ public class UserController : ControllerBase
 
         if (user == null)
         {
-            return NotFound();
+            return NotFound(new { message = "User not found." });
         }
 
         var roles = await _userManager.GetRolesAsync(user);
@@ -44,7 +43,101 @@ public class UserController : ControllerBase
             user.FullName,
             user.Email,
             user.University,
+            user.Bio,
+            user.ProfilePictureUrl,
             Roles = roles
         });
     }
+
+    [HttpPut("me")]
+    public async Task<IActionResult> UpdateCurrentUser([FromBody] UpdateProfileDto dto)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound(new { message = "User not found." });
+        }
+
+        if (!string.IsNullOrWhiteSpace(dto.FullName))
+        {
+            user.FullName = dto.FullName.Trim();
+        }
+
+        if (dto.University != null)
+        {
+            user.University = dto.University.Trim();
+        }
+
+        if (dto.Bio != null)
+        {
+            user.Bio = dto.Bio.Trim();
+        }
+
+        if (dto.ProfilePictureUrl != null)
+        {
+            user.ProfilePictureUrl = dto.ProfilePictureUrl.Trim();
+        }
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (!result.Succeeded)
+        {
+            return BadRequest(new
+            {
+                message = string.Join("; ", result.Errors.Select(e => e.Description))
+            });
+        }
+
+        return Ok(new
+        {
+            message = "Profile updated successfully.",
+            user.Id,
+            user.FullName,
+            user.Email,
+            user.University,
+            user.Bio,
+            user.ProfilePictureUrl
+        });
+    }
+}
+
+[ApiController]
+[Route("api/user")]
+[Authorize]
+public class UserController : ControllerBase
+{
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public UserController(UserManager<ApplicationUser> userManager)
+    {
+        _userManager = userManager;
+    }
+
+    [HttpGet("me")]
+    public async Task<IActionResult> GetCurrentUserLegacy()
+    {
+        return await new UsersController(_userManager).GetCurrentUser();
+    }
+
+    [HttpPut("me")]
+    public async Task<IActionResult> UpdateCurrentUserLegacy([FromBody] UpdateProfileDto dto)
+    {
+        return await new UsersController(_userManager).UpdateCurrentUser(dto);
+    }
+}
+
+public class UpdateProfileDto
+{
+    public string? FullName { get; set; }
+    public string? University { get; set; }
+    public string? Bio { get; set; }
+    public string? ProfilePictureUrl { get; set; }
 }
