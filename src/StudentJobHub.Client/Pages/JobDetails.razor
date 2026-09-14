@@ -3,6 +3,8 @@
 @using StudentJobHub.Client.Models
 @using StudentJobHub.Client.Services
 @inject JobApiService JobService
+@inject ApplicationApiService ApplicationService
+@inject NavigationManager Navigation
 
 <PageTitle>@(job?.Title ?? "Job Details") | Student Job Hub</PageTitle>
 
@@ -130,9 +132,31 @@
 
                 @if (job.IsOpen)
                 {
-                    <button class="apply-button">
-                        Apply for this Job
-                    </button>
+                    @if (showApplicationForm)
+                    {
+                        <EditForm Model="@application" OnValidSubmit="SubmitApplicationAsync">
+                            <DataAnnotationsValidator />
+                            <label for="application-message">Message to the poster</label>
+                            <InputTextArea id="application-message" class="form-control" @bind-Value="application.Message" rows="5" />
+                            <ValidationMessage For="@(() => application.Message)" />
+                            @if (!string.IsNullOrEmpty(applicationError))
+                            {
+                                <p class="error-message">@applicationError</p>
+                            }
+                            <div class="form-actions">
+                                <button type="submit" class="apply-button" disabled="@isSubmittingApplication">
+                                    @(isSubmittingApplication ? "Submitting..." : "Submit Application")
+                                </button>
+                                <button type="button" class="back-button" @onclick="CancelApplication">Cancel</button>
+                            </div>
+                        </EditForm>
+                    }
+                    else
+                    {
+                        <button class="apply-button" @onclick="() => showApplicationForm = true">
+                            Apply for this Job
+                        </button>
+                    }
                 }
                 else
                 {
@@ -376,6 +400,11 @@
 
     private bool isLoading = true;
 
+    private bool showApplicationForm;
+    private bool isSubmittingApplication;
+    private CreateApplicationModel application = new();
+    private string? applicationError;
+
     private string? errorMessage;
 
     protected override async Task OnParametersSetAsync()
@@ -407,5 +436,43 @@
         {
             isLoading = false;
         }
+    }
+
+    private async Task SubmitApplicationAsync()
+    {
+        isSubmittingApplication = true;
+        applicationError = null;
+
+        try
+        {
+            var response = await ApplicationService.ApplyAsync(Id, application);
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/my-applications");
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Navigation.NavigateTo($"/login?returnUrl=/jobs/{Id}");
+            }
+            else
+            {
+                applicationError = await response.Content.ReadAsStringAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            applicationError = $"Unable to submit application: {ex.Message}";
+        }
+        finally
+        {
+            isSubmittingApplication = false;
+        }
+    }
+
+    private void CancelApplication()
+    {
+        showApplicationForm = false;
+        applicationError = null;
+        application = new CreateApplicationModel();
     }
 }
