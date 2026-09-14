@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "StudentJobHub.Tests/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.InMemory": "10.0.11",
           "Microsoft.NET.Test.Sdk": "17.14.1",
           "StudentJobHub.Api": "1.0.0",
           "xunit": "2.9.3"
@@ -207,6 +208,17 @@
       "Microsoft.EntityFrameworkCore.Abstractions/10.0.11": {
         "runtime": {
           "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "assemblyVersion": "10.0.11.0",
+            "fileVersion": "10.0.1126.37416"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.InMemory/10.0.11": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.11"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
             "assemblyVersion": "10.0.11.0",
             "fileVersion": "10.0.1126.37416"
           }
@@ -854,6 +866,13 @@
       "sha512": "sha512-6auJR+9+9VunznKfH7WGrHMrnrmA0F7JZ22EXzwXvVhjfnbu9Xq7NSIWaOf3KJsOanM2qf5ajJ2JR5TlcPZTLA==",
       "path": "microsoft.entityframeworkcore.abstractions/10.0.11",
       "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.11.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/10.0.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QBMaEmLIAzUUnH7+1Vbui+9Ui0dSsglkKxjW4sofOHycB3218UrnrUzq+Y75syrR4krUCtY7loWKaVBOeU3qKw==",
+      "path": "microsoft.entityframeworkcore.inmemory/10.0.11",
+      "hashPath": "microsoft.entityframeworkcore.inmemory.10.0.11.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/10.0.11": {
       "type": "package",
