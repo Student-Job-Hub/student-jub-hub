@@ -23,8 +23,7 @@ public class ReviewsController : ControllerBase
     public async Task<IActionResult> Create(
         CreateReviewDto dto)
     {
-        var userId = User.FindFirstValue(
-            ClaimTypes.NameIdentifier);
+        var userId = GetCurrentUserId();
 
         if (userId == null)
         {
@@ -83,8 +82,7 @@ public class ReviewsController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var userId = User.FindFirstValue(
-            ClaimTypes.NameIdentifier);
+        var userId = GetCurrentUserId();
 
         if (userId == null)
         {
@@ -108,5 +106,12 @@ public class ReviewsController : ControllerBase
         {
             message = "Review deleted successfully."
         });
+    }
+
+    private string? GetCurrentUserId()
+    {
+        return User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? User.FindFirstValue(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)
+            ?? User.FindFirstValue("sub");
     }
 }

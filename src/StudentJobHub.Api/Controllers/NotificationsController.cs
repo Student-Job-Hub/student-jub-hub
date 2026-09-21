@@ -97,7 +97,8 @@ public class NotificationsController : ControllerBase
 
     private string? GetCurrentUserId()
     {
-        return User.FindFirstValue(
-            ClaimTypes.NameIdentifier);
+        return User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? User.FindFirstValue(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)
+            ?? User.FindFirstValue("sub");
     }
 }

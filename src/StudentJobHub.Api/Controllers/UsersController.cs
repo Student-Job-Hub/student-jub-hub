@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using StudentJobHub.Api.DTOs.User;
 using StudentJobHub.Api.Models;
 
 namespace StudentJobHub.Api.Controllers;
@@ -21,7 +22,7 @@ public class UsersController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetCurrentUser()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = GetCurrentUserId();
 
         if (string.IsNullOrEmpty(userId))
         {
@@ -52,7 +53,7 @@ public class UsersController : ControllerBase
     [HttpPut("me")]
     public async Task<IActionResult> UpdateCurrentUser([FromBody] UpdateProfileDto dto)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = GetCurrentUserId();
 
         if (string.IsNullOrEmpty(userId))
         {
@@ -107,6 +108,13 @@ public class UsersController : ControllerBase
             user.ProfilePictureUrl
         });
     }
+
+    private string? GetCurrentUserId()
+    {
+        return User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? User.FindFirstValue(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)
+            ?? User.FindFirstValue("sub");
+    }
 }
 
 [ApiController]
@@ -132,12 +140,4 @@ public class UserController : ControllerBase
     {
         return await new UsersController(_userManager).UpdateCurrentUser(dto);
     }
-}
-
-public class UpdateProfileDto
-{
-    public string? FullName { get; set; }
-    public string? University { get; set; }
-    public string? Bio { get; set; }
-    public string? ProfilePictureUrl { get; set; }
 }
