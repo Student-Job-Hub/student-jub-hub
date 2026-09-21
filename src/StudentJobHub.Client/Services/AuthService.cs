@@ -19,9 +19,28 @@ public class AuthService
 
     public bool IsLoggedIn => !string.IsNullOrWhiteSpace(Token);
 
+    public event Action? OnAuthStateChanged;
+
     public async Task InitializeAsync()
     {
-        Token = await _jsRuntime.InvokeAsync<string?>("authStorage.getToken");
+        await GetTokenAsync();
+    }
+
+    public async Task<string?> GetTokenAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Token))
+        {
+            try
+            {
+                Token = await _jsRuntime.InvokeAsync<string?>("authStorage.getToken");
+            }
+            catch
+            {
+                // In case JS interop is not ready yet during pre-rendering
+            }
+        }
+
+        return Token;
     }
 
     public async Task<AuthResponse?> LoginAsync(LoginModel model)
@@ -42,6 +61,7 @@ public class AuthService
         {
             Token = result.Token;
             await _jsRuntime.InvokeVoidAsync("authStorage.setToken", Token);
+            OnAuthStateChanged?.Invoke();
         }
 
         return result;
@@ -65,6 +85,7 @@ public class AuthService
         {
             Token = result.Token;
             await _jsRuntime.InvokeVoidAsync("authStorage.setToken", Token);
+            OnAuthStateChanged?.Invoke();
         }
 
         return result;
@@ -73,6 +94,14 @@ public class AuthService
     public async Task LogoutAsync()
     {
         Token = null;
-        await _jsRuntime.InvokeVoidAsync("authStorage.removeToken");
+        try
+        {
+            await _jsRuntime.InvokeVoidAsync("authStorage.removeToken");
+        }
+        catch
+        {
+            // Ignore if JS interop error during logout
+        }
+        OnAuthStateChanged?.Invoke();
     }
 }

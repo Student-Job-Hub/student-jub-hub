@@ -71,6 +71,10 @@
 </div>
 
 @code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+
     private LoginModel model = new();
 
     private bool isLoading;
@@ -97,7 +101,8 @@
                 return;
             }
 
-            Navigation.NavigateTo("/jobs");
+            var target = !string.IsNullOrWhiteSpace(ReturnUrl) ? ReturnUrl : "/dashboard";
+            Navigation.NavigateTo(target);
         }
         catch (Exception ex)
         {

@@ -1,23 +1,36 @@
 using System.Net.Http.Headers;
+using Microsoft.JSInterop;
 
 namespace StudentJobHub.Client.Services;
 
 public class JwtAuthorizationHandler : DelegatingHandler
 {
     private readonly AuthService _authService;
+    private readonly IJSRuntime _jsRuntime;
 
-    public JwtAuthorizationHandler(AuthService authService)
+    public JwtAuthorizationHandler(AuthService authService, IJSRuntime jsRuntime)
     {
         _authService = authService;
+        _jsRuntime = jsRuntime;
     }
 
     protected override async Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage request,
         CancellationToken cancellationToken)
     {
-        var token = _authService.Token;
+        var token = await _authService.GetTokenAsync();
 
-        Console.WriteLine($"[JwtAuthorizationHandler] Token is: {(string.IsNullOrWhiteSpace(token) ? "NULL/EMPTY" : "present, length " + token.Length)}");
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            try
+            {
+                token = await _jsRuntime.InvokeAsync<string?>("authStorage.getToken");
+            }
+            catch
+            {
+                // Fallback catch if JS runtime fails
+            }
+        }
 
         if (!string.IsNullOrWhiteSpace(token))
         {

@@ -4,6 +4,9 @@
 @using StudentJobHub.Client.Services
 @inject JobApiService JobService
 @inject ApplicationApiService ApplicationService
+@inject AuthService AuthService
+@inject UserApiService UserService
+@inject IJSRuntime JSRuntime
 @inject NavigationManager Navigation
 
 <PageTitle>@(job?.Title ?? "Job Details") | Student Job Hub</PageTitle>
@@ -130,9 +133,35 @@
 
             <div class="job-actions">
 
-                @if (job.IsOpen)
+                @if (isOwner)
                 {
-                    @if (showApplicationForm)
+                    <div class="owner-action-bar">
+                        <a href="/my-jobs/edit/@job.Id" class="apply-button">
+                            Edit Job
+                        </a>
+                        <a href="/my-jobs/@job.Id/applications" class="apply-button secondary-action">
+                            View Applications
+                        </a>
+                        @if (job.IsOpen)
+                        {
+                            <button class="apply-button secondary-action" @onclick="CloseJobAsync" disabled="@isActionBusy">
+                                @(isActionBusy ? "Processing..." : "Close Job")
+                            </button>
+                        }
+                        <button class="delete-action-button" @onclick="DeleteJobAsync" disabled="@isActionBusy">
+                            Delete Job
+                        </button>
+                    </div>
+                }
+                else if (job.IsOpen)
+                {
+                    @if (!AuthService.IsLoggedIn)
+                    {
+                        <a href="/login?returnUrl=/jobs/@job.Id" class="apply-button">
+                            Log In to Apply
+                        </a>
+                    }
+                    else if (showApplicationForm)
                     {
                         <EditForm Model="@application" OnValidSubmit="SubmitApplicationAsync">
                             <DataAnnotationsValidator />
@@ -160,8 +189,7 @@
                 }
                 else
                 {
-                    <button class="apply-button disabled"
-                            disabled>
+                    <button class="apply-button disabled" disabled>
                         Job Closed
                     </button>
                 }
@@ -309,6 +337,12 @@
         justify-content: flex-end;
     }
 
+    .owner-action-bar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
     .apply-button {
         border: none;
         background: #2563eb;
@@ -318,10 +352,35 @@
         font-weight: 600;
         cursor: pointer;
         font-size: 15px;
+        text-decoration: none;
+        display: inline-block;
     }
 
     .apply-button:hover {
         background: #1d4ed8;
+    }
+
+    .apply-button.secondary-action {
+        background: #4b5563;
+    }
+
+    .apply-button.secondary-action:hover {
+        background: #374151;
+    }
+
+    .delete-action-button {
+        border: 1px solid #dc2626;
+        background: white;
+        color: #dc2626;
+        padding: 13px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .delete-action-button:hover {
+        background: #fee2e2;
     }
 
     .apply-button.disabled {
@@ -397,8 +456,11 @@
     public int Id { get; set; }
 
     private JobModel? job;
+    private string? currentUserId;
+    private bool isOwner => !string.IsNullOrEmpty(currentUserId) && job?.PostedById == currentUserId;
 
     private bool isLoading = true;
+    private bool isActionBusy = false;
 
     private bool showApplicationForm;
     private bool isSubmittingApplication;
@@ -426,11 +488,16 @@
             {
                 errorMessage = "The requested job could not be found.";
             }
+
+            if (AuthService.IsLoggedIn)
+            {
+                var currentUser = await UserService.GetCurrentUserAsync();
+                currentUserId = currentUser?.Id;
+            }
         }
         catch
         {
-            errorMessage =
-                "We could not connect to the Student Job Hub API.";
+            errorMessage = "We could not connect to the Student Job Hub API.";
         }
         finally
         {
@@ -466,6 +533,62 @@
         finally
         {
             isSubmittingApplication = false;
+        }
+    }
+
+    private async Task CloseJobAsync()
+    {
+        if (job is null) return;
+        isActionBusy = true;
+        try
+        {
+            var response = await JobService.CloseAsync(job.Id);
+            if (response.IsSuccessStatusCode)
+            {
+                job.IsOpen = false;
+            }
+            else
+            {
+                errorMessage = "Unable to close this job.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error closing job: {ex.Message}";
+        }
+        finally
+        {
+            isActionBusy = false;
+        }
+    }
+
+    private async Task DeleteJobAsync()
+    {
+        if (job is null) return;
+
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this job posting? This action cannot be undone.");
+        if (!confirmed) return;
+
+        isActionBusy = true;
+        try
+        {
+            var response = await JobService.DeleteAsync(job.Id);
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/my-jobs");
+            }
+            else
+            {
+                errorMessage = "Unable to delete this job.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error deleting job: {ex.Message}";
+        }
+        finally
+        {
+            isActionBusy = false;
         }
     }
 

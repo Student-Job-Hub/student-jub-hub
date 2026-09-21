@@ -4,6 +4,7 @@
 @inject ApplicationApiService ApplicationService
 @inject ServiceApiService ServiceApiService
 @inject NotificationService NotificationService
+@inject NavigationManager Navigation
 @using StudentJobHub.Client
 @using StudentJobHub.Client.Layout
 @using StudentJobHub.Client.Models
@@ -23,7 +24,7 @@
             }
             else
             {
-                <p>Welcome to Student Job Hub.</p>
+                <p>Welcome to Student Job Hub. Log in to access your personal dashboard.</p>
             }
         </div>
     </div>
@@ -38,6 +39,14 @@
     {
         <div class="error-message">
             <p>@errorMessage</p>
+            @if (isUnauthorized)
+            {
+                <a href="/login?returnUrl=/dashboard" class="action-btn">Log In Again</a>
+            }
+            else
+            {
+                <button class="action-btn" @onclick="LoadDashboardAsync">Try Again</button>
+            }
         </div>
     }
     else
@@ -103,6 +112,15 @@
                     </div>
                 </a>
 
+                <a href="/post-job" class="action-card">
+                    <span class="action-icon">➕</span>
+
+                    <div>
+                        <h3>Post a Job</h3>
+                        <p>Create a new job opportunity.</p>
+                    </div>
+                </a>
+
                 <a href="/my-applications" class="action-card">
                     <span class="action-icon">📋</span>
 
@@ -118,6 +136,15 @@
                     <div>
                         <h3>My Jobs</h3>
                         <p>Manage jobs you have posted.</p>
+                    </div>
+                </a>
+
+                <a href="/services" class="action-card">
+                    <span class="action-icon">🛠️</span>
+
+                    <div>
+                        <h3>Services</h3>
+                        <p>Browse campus freelance services.</p>
                     </div>
                 </a>
 
@@ -155,7 +182,7 @@
             {
                 <div class="jobs-grid">
 
-                    @foreach (var job in jobs.Take(5))
+                    @foreach (var job in jobs.Take(6))
                     {
                         <div class="job-card">
 
@@ -286,7 +313,7 @@
 
     .actions-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 18px;
     }
 
@@ -403,6 +430,19 @@
         background: #fee2e2;
     }
 
+    .action-btn {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 10px 18px;
+        background: #2563eb;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
     @@media (max-width: 900px) {
         .stats-grid,
         .actions-grid {
@@ -431,32 +471,73 @@
     private int unreadNotificationCount;
 
     private bool isLoading = true;
-
+    private bool isUnauthorized = false;
     private string? errorMessage;
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadDashboardAsync();
+    }
+
+    private async Task LoadDashboardAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+        isUnauthorized = false;
+
         try
         {
+            await AuthService.GetTokenAsync();
+
             jobs = await JobService.GetAllAsync();
+
+            try
+            {
+                var services = await ServiceApiService.GetAllAsync();
+                serviceCount = services.Count;
+            }
+            catch
+            {
+                serviceCount = 0;
+            }
 
             if (AuthService.IsLoggedIn)
             {
-                var applicationsTask = ApplicationService.GetMyApplicationsAsync();
-                var servicesTask = ServiceApiService.GetAllAsync();
-                var notificationsTask = NotificationService.GetNotificationsAsync();
+                try
+                {
+                    var myApplications = await ApplicationService.GetMyApplicationsAsync();
+                    applicationCount = myApplications.Count;
+                }
+                catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    isUnauthorized = true;
+                }
 
-                await Task.WhenAll(applicationsTask, servicesTask, notificationsTask);
+                try
+                {
+                    var notifications = await NotificationService.GetNotificationsAsync();
+                    unreadNotificationCount = notifications.Count(n => !n.IsRead);
+                }
+                catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    isUnauthorized = true;
+                }
 
-                applicationCount = applicationsTask.Result.Count;
-                serviceCount = servicesTask.Result.Count;
-                unreadNotificationCount = notificationsTask.Result.Count(notification => !notification.IsRead);
+                if (isUnauthorized)
+                {
+                    errorMessage = "Your session has expired. Please log in again to view your dashboard.";
+                    return;
+                }
             }
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            isUnauthorized = true;
+            errorMessage = "Your session has expired. Please log in again to access the dashboard.";
         }
         catch (Exception ex)
         {
-            errorMessage =
-                $"Unable to load dashboard data: {ex.Message}";
+            errorMessage = $"Unable to load dashboard data: {ex.Message}";
         }
         finally
         {
