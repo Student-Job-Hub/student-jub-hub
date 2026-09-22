@@ -71,12 +71,12 @@ button {
 /* ==========================================
    HIGH CONTRAST DARK MODE OVERRIDES
    ========================================== */
-body.dark-mode {
+/* body.dark-mode {
     background-color: #0b0f19 !important;
     color: #ffffff !important;
-}
+} */
 
-body.dark-mode .content,
+/* body.dark-mode .content,
 body.dark-mode main,
 body.dark-mode .page,
 body.dark-mode .jobs-page,
@@ -137,12 +137,16 @@ body.dark-mode h3,
 body.dark-mode h4,
 body.dark-mode h5,
 body.dark-mode h6,
-body.dark-mode strong,
+/* body.dark-mode strong, */
 body.dark-mode b,
 body.dark-mode th,
 body.dark-mode label,
 body.dark-mode dt {
-    color: #ffffff !important;
+    color: #f0eeee !important;
+}
+
+body.dark-mode strong {
+    color: #0b0b0b !important;
 }
 
 body.dark-mode p,
@@ -158,7 +162,7 @@ body.dark-mode .job-details,
 body.dark-mode .job-info,
 body.dark-mode .meta,
 body.dark-mode .requirements p {
-    color: #f1f5f9 !important;
+    color: #4a93dc !important;
 }
 
 body.dark-mode .label,
@@ -240,7 +244,7 @@ body.dark-mode [style*="color: #7f1d1d"] {
 body.dark-mode .job-icon {
     background-color: #1e293b !important;
     color: #ffffff !important;
-}
+} */
 
 /* ==========================================
    TOAST NOTIFICATIONS
@@ -272,7 +276,7 @@ body.dark-mode .job-icon {
 .toast-success { background-color: #10b981; }
 .toast-error { background-color: #ef4444; }
 .toast-warning { background-color: #f59e0b; }
-.toast-info { background-color: #3b82f6; }
+.toast-info { background-color:#2563eb; }
 
 .toast-message { flex: 1; font-size: 0.9rem; }
 .toast-close { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; opacity: 0.8; }
@@ -367,7 +371,7 @@ a, .btn-link {
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
+    background-color: #2563eb;
     border-color: #1861ac;
 }
 
@@ -440,7 +444,7 @@ a, .btn-link {
     }
 
         .loading-progress circle:last-child {
-            stroke: #1b6ec2;
+            stroke: #2563eb;
             stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
             transition: stroke-dasharray 0.05s ease-in-out;
         }
@@ -510,7 +514,7 @@ code {
 }
 
     .post-job-button:hover {
-        background: #1d4ed8;
+        background: #2563eb;
     }
 
 
