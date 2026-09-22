@@ -17,6 +17,10 @@ public class RegisterDto
     public string Password { get; set; } = string.Empty;
 
     [Required]
+    [Compare("Password", ErrorMessage = "Passwords do not match.")]
+    public string ConfirmPassword { get; set; } = string.Empty;
+
+    [Required]
     public string Role { get; set; } = "Student";
 
     public string? University { get; set; }
