@@ -1,6 +1,361 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* ==========================================
+   GLOBAL SHARP EDGES (NO BORDER RADIUS)
+   ========================================== */
+*,
+*::before,
+*::after,
+.job-card,
+.stat-card,
+.auth-card,
+.action-card,
+.service-card,
+.my-jobs-header,
+.jobs-toolbar,
+.services-toolbar,
+.modal-dialog-custom,
+.post-job-button,
+.post-job-form,
+.cancel-button,
+.view-button,
+.edit-button,
+.btn,
+.btn-sm,
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-outline-danger,
+.btn-outline-secondary,
+.theme-toggle-btn,
+.skeleton-card,
+.skeleton-line,
+.skeleton-badge,
+.skeleton-button,
+.loading-card,
+.error-card,
+.empty-card,
+.form-control,
+.job-icon,
+.status,
+.job-status,
+.badge,
+input,
+select,
+textarea,
+button {
+    border-radius: 0 !important;
+}
+
+/* ==========================================
+   THEME TOGGLE BUTTON STYLING
+   ========================================== */
+.theme-toggle-btn {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #f1f5f9;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    background-color: #e2e8f0;
+}
+
+/* ==========================================
+   HIGH CONTRAST DARK MODE OVERRIDES
+   ========================================== */
+body.dark-mode {
+    background-color: #0b0f19 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .content,
+body.dark-mode main,
+body.dark-mode .page,
+body.dark-mode .jobs-page,
+body.dark-mode .services-page,
+body.dark-mode .post-job-page,
+body.dark-mode .my-jobs-page,
+body.dark-mode .auth-page,
+body.dark-mode .dashboard {
+    background-color: #0b0f19 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .theme-toggle-btn {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 1px solid #475569 !important;
+}
+
+body.dark-mode .theme-toggle-btn:hover {
+    background-color: #334155 !important;
+}
+
+body.dark-mode .job-card,
+body.dark-mode .stat-card,
+body.dark-mode .auth-card,
+body.dark-mode .action-card,
+body.dark-mode .service-card,
+body.dark-mode .my-jobs-header,
+body.dark-mode .jobs-toolbar,
+body.dark-mode .services-toolbar,
+body.dark-mode .modal-dialog-custom,
+body.dark-mode .post-job-form,
+body.dark-mode .empty-card,
+body.dark-mode .loading-card,
+body.dark-mode .error-card,
+body.dark-mode .dashboard-section,
+body.dark-mode .page-header,
+body.dark-mode .profile-card,
+body.dark-mode .job-details-card,
+body.dark-mode .application-card,
+body.dark-mode .notification-card,
+body.dark-mode .review-card,
+body.dark-mode .section-header,
+body.dark-mode .job-content,
+body.dark-mode table,
+body.dark-mode tr,
+body.dark-mode td,
+body.dark-mode th {
+    background-color: #151e2e !important;
+    color: #ffffff !important;
+    border-color: #2d3748 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode strong,
+body.dark-mode b,
+body.dark-mode th,
+body.dark-mode label,
+body.dark-mode dt {
+    color: #ffffff !important;
+}
+
+body.dark-mode p,
+body.dark-mode span:not(.status):not(.badge):not(.job-status),
+body.dark-mode td,
+body.dark-mode li,
+body.dark-mode div,
+body.dark-mode small,
+body.dark-mode dd,
+body.dark-mode .job-description,
+body.dark-mode .posted-by,
+body.dark-mode .job-details,
+body.dark-mode .job-info,
+body.dark-mode .meta,
+body.dark-mode .requirements p {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .label,
+body.dark-mode .job-details strong,
+body.dark-mode .posted-by span,
+body.dark-mode .my-jobs-header p,
+body.dark-mode .jobs-summary,
+body.dark-mode .post-job-header p,
+body.dark-mode .jobs-header p,
+body.dark-mode .dashboard-header p {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode a:not(.btn):not(.post-job-button):not(.create-job-button):not(.nav-link):not(.primary-button) {
+    color: #38bdf8 !important;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea,
+body.dark-mode .form-control {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 1px solid #475569 !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* Badges & Statuses in Dark Mode */
+body.dark-mode .job-status.open,
+body.dark-mode .status.open {
+    background-color: #064e3b !important;
+    color: #6ee7b7 !important;
+}
+
+body.dark-mode .job-status.closed,
+body.dark-mode .status.closed {
+    background-color: #7f1d1d !important;
+    color: #fca5a5 !important;
+}
+
+/* Override inline light backgrounds on Dashboard widget cards */
+body.dark-mode [style*="background: #fffbebf5"],
+body.dark-mode [style*="background:#fffbebf5"] {
+    background: #3b2506 !important;
+    border-color: #78350f !important;
+}
+
+body.dark-mode [style*="background: #f0fdf4"],
+body.dark-mode [style*="background:#f0fdf4"] {
+    background: #06371e !important;
+    border-color: #14532d !important;
+}
+
+body.dark-mode [style*="background: #fef2f2"],
+body.dark-mode [style*="background:#fef2f2"] {
+    background: #3b0c0c !important;
+    border-color: #7f1d1d !important;
+}
+
+body.dark-mode [style*="color: #92400e"],
+body.dark-mode [style*="color: #78350f"] {
+    color: #fde68a !important;
+}
+
+body.dark-mode [style*="color: #166534"],
+body.dark-mode [style*="color: #14532d"] {
+    color: #86efac !important;
+}
+
+body.dark-mode [style*="color: #991b1b"],
+body.dark-mode [style*="color: #7f1d1d"] {
+    color: #fca5a5 !important;
+}
+
+body.dark-mode .job-icon {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================
+   TOAST NOTIFICATIONS
+   ========================================== */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 380px;
+    width: 90%;
+}
+
+.toast-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    animation: slideInRight 0.3s ease-out;
+}
+
+.toast-success { background-color: #10b981; }
+.toast-error { background-color: #ef4444; }
+.toast-warning { background-color: #f59e0b; }
+.toast-info { background-color: #3b82f6; }
+
+.toast-message { flex: 1; font-size: 0.9rem; }
+.toast-close { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; opacity: 0.8; }
+.toast-close:hover { opacity: 1; }
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* ==========================================
+   SKELETON SHIMMER LOADERS
+   ========================================== */
+.skeleton-card {
+    background: #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+body.dark-mode .skeleton-card {
+    background: #1e293b;
+}
+
+.skeleton-card::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0));
+    animation: shimmer 1.8s infinite;
+}
+
+@keyframes shimmer {
+    100% { transform: translateX(100%); }
+}
+
+.skeleton-line { height: 14px; background: #cbd5e1; border-radius: 4px; margin-bottom: 10px; }
+body.dark-mode .skeleton-line { background: #334155; }
+
+.skeleton-title { height: 20px; width: 60%; }
+.skeleton-text { width: 90%; }
+.skeleton-text.short { width: 50%; }
+.skeleton-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.skeleton-badge { width: 60px; height: 20px; background: #cbd5e1; border-radius: 12px; }
+.skeleton-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+.skeleton-small { width: 80px; height: 12px; }
+.skeleton-button { width: 90px; height: 32px; background: #cbd5e1; border-radius: 6px; }
+
+/* ==========================================
+   CUSTOM MODAL DIALOG
+   ========================================== */
+.modal-backdrop-custom {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.modal-dialog-custom {
+    background: white;
+    padding: 24px;
+    border-radius: 14px;
+    max-width: 440px;
+    width: 90%;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    animation: modalPop 0.2s ease-out;
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header-custom h3 { margin: 0 0 12px 0; font-size: 1.25rem; }
+.modal-body-custom p { margin: 0 0 20px 0; color: #475569; }
+.modal-footer-custom { display: flex; gap: 12px; justify-content: flex-end; }
 
 h1:focus {
     outline: none;
