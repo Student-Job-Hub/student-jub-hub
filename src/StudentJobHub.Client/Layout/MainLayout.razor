@@ -1,11 +1,19 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
+@inject ThemeService ThemeService
+@implements IDisposable
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <main>
-        <div class="top-row px-4">
+        <div class="top-row px-4 d-flex justify-content-between align-items-center">
+            <div>
+                <button class="theme-toggle-btn" @onclick="ToggleTheme">
+                    @(ThemeService.IsDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode")
+                </button>
+            </div>
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
 
@@ -13,4 +21,28 @@
             @Body
         </article>
     </main>
+
+    <ToastContainer />
 </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        ThemeService.OnThemeChanged += StateHasChangedHandler;
+    }
+
+    private void StateHasChangedHandler()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async Task ToggleTheme()
+    {
+        await ThemeService.ToggleThemeAsync();
+    }
+
+    public void Dispose()
+    {
+        ThemeService.OnThemeChanged -= StateHasChangedHandler;
+    }
+}
