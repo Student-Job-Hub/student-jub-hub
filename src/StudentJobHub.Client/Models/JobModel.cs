@@ -8,6 +8,8 @@ public class JobModel
 
     public string Description { get; set; } = string.Empty;
 
+    public string Category { get; set; } = string.Empty;
+
     public string Requirements { get; set; } = string.Empty;
 
     public decimal Budget { get; set; }
