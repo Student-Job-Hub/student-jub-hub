@@ -44,6 +44,19 @@
         </div>
 
         <div class="form-group">
+            <label for="category">Category</label>
+            <InputSelect id="category" class="form-control" @bind-Value="model.Category">
+                <option value="Tech & IT">Tech & IT</option>
+                <option value="Tutoring & Academic">Tutoring & Academic</option>
+                <option value="Design & Media">Design & Media</option>
+                <option value="Admin & Office">Admin & Office</option>
+                <option value="Campus Event">Campus Event</option>
+                <option value="General">General</option>
+            </InputSelect>
+            <ValidationMessage For="@(() => model.Category)" />
+        </div>
+
+        <div class="form-group">
             <label for="requirements">Requirements</label>
             <InputTextArea id="requirements" class="form-control" rows="3"
                             @bind-Value="model.Requirements" />

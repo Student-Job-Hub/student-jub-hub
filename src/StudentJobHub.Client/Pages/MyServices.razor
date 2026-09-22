@@ -1,0 +1,160 @@
+@page "/my-services"
+
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+
+@inject ServiceApiService ServiceApiService
+@inject NavigationManager NavigationManager
+@inject ToastService ToastService
+
+<PageTitle>My Services | Student Job Hub</PageTitle>
+
+<div class="my-jobs-page">
+
+    <div class="my-jobs-header">
+        <div>
+            <h1>My Services</h1>
+            <p>Manage the freelance and professional services you offer on Student Job Hub.</p>
+        </div>
+
+        <a href="/create-service" class="post-job-button">
+            + Offer a Service
+        </a>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="jobs-grid" style="margin-top: 20px;">
+            <SkeletonCard />
+            <SkeletonCard />
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-card">
+            <h3>Unable to load your services</h3>
+            <p>@errorMessage</p>
+            <button @onclick="LoadMyServicesAsync">Try Again</button>
+        </div>
+    }
+    else if (services.Count == 0)
+    {
+        <div class="empty-card">
+            <h2>You haven't listed any services yet.</h2>
+            <p>Start offering your skills, tutoring, or freelance services to fellow students and employers.</p>
+            <a href="/create-service" class="post-job-button">
+                + Offer Your First Service
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="jobs-summary">
+            <strong>@services.Count</strong> @(services.Count == 1 ? "service" : "services") offered
+        </div>
+
+        <div class="jobs-grid">
+            @foreach (var service in services)
+            {
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div>
+                            <h2>@service.Title</h2>
+                            <span class="job-status open">@service.Category</span>
+                        </div>
+                        <span class="job-budget">GH₵ @service.Price.ToString("N2")</span>
+                    </div>
+
+                    <p class="job-description">@service.Description</p>
+
+                    <div class="job-details">
+                        <span>🗓 Offered @service.CreatedAt.ToString("MMM dd, yyyy")</span>
+                    </div>
+
+                    <div class="job-actions">
+                        <button class="btn btn-outline-danger" @onclick="() => ConfirmDeleteAsync(service)">
+                            🗑 Delete
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+</div>
+
+<ConfirmModal IsOpen="@(serviceToDelete != null)"
+              Title="Delete Service"
+              Message="@($"Are you sure you want to delete '{serviceToDelete?.Title}'? This action cannot be undone.")"
+              ConfirmText="Delete Service"
+              IsDanger="true"
+              OnConfirm="DeleteServiceAsync"
+              OnCancel="CancelDelete" />
+
+@code {
+    private List<ServiceModel> services = new();
+    private bool isLoading = true;
+    private string? errorMessage;
+    private ServiceModel? serviceToDelete;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadMyServicesAsync();
+    }
+
+    private async Task LoadMyServicesAsync()
+    {
+        try
+        {
+            isLoading = true;
+            errorMessage = null;
+            services = await ServiceApiService.GetMyServicesAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Error fetching your services: " + ex.Message;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void ConfirmDeleteAsync(ServiceModel service)
+    {
+        serviceToDelete = service;
+    }
+
+    private void CancelDelete()
+    {
+        serviceToDelete = null;
+    }
+
+    private async Task DeleteServiceAsync()
+    {
+        if (serviceToDelete == null) return;
+
+        var title = serviceToDelete.Title;
+        try
+        {
+            var response = await ServiceApiService.DeleteAsync(serviceToDelete.Id);
+            if (response.IsSuccessStatusCode)
+            {
+                services.Remove(serviceToDelete);
+                ToastService.ShowSuccess($"Service '{title}' was deleted successfully.");
+            }
+            else
+            {
+                ToastService.ShowError("Failed to delete service.");
+            }
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError("Error deleting service: " + ex.Message);
+        }
+        finally
+        {
+            serviceToDelete = null;
+        }
+    }
+}
