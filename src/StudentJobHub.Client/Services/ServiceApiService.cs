@@ -18,6 +18,12 @@ public class ServiceApiService
             ?? new List<ServiceModel>();
     }
 
+    public async Task<List<ServiceModel>> GetMyServicesAsync()
+    {
+        return await _httpClient.GetFromJsonAsync<List<ServiceModel>>("api/services/my")
+            ?? new List<ServiceModel>();
+    }
+
     public async Task<ServiceModel?> GetByIdAsync(int id)
     {
         return await _httpClient.GetFromJsonAsync<ServiceModel>($"api/services/{id}");
