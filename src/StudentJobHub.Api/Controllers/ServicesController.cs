@@ -31,6 +31,26 @@ public class ServicesController : ControllerBase
     }
 
     // ==========================================
+    // GET MY SERVICES
+    // ==========================================
+
+    [HttpGet("my")]
+    [Authorize]
+    public async Task<IActionResult> GetMy()
+    {
+        var providerId = GetCurrentUserId();
+
+        if (providerId == null)
+        {
+            return Unauthorized();
+        }
+
+        var services = await _serviceService.GetByProviderIdAsync(providerId);
+
+        return Ok(services);
+    }
+
+    // ==========================================
     // GET SERVICE BY ID
     // ==========================================
 
