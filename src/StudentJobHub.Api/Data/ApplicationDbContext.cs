@@ -45,6 +45,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         // ==========================================
 
         builder.Entity<Service>()
+            .HasOne(s => s.Provider)
+            .WithMany()
+            .HasForeignKey(s => s.ProviderId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Service>()
             .Property(s => s.Price)
             .HasPrecision(18, 2);
 
@@ -78,6 +84,16 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .HasOne(r => r.Reviewee)
             .WithMany()
             .HasForeignKey(r => r.RevieweeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // ==========================================
+        // NOTIFICATION
+        // ==========================================
+
+        builder.Entity<Notification>()
+            .HasOne(n => n.User)
+            .WithMany()
+            .HasForeignKey(n => n.UserId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

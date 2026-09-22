@@ -22,6 +22,7 @@ public class JobService
         {
             Title = dto.Title,
             Description = dto.Description,
+            Category = dto.Category,
             Requirements = dto.Requirements,
             Budget = dto.Budget,
             Deadline = dto.Deadline,
@@ -48,6 +49,7 @@ public class JobService
                 Id = j.Id,
                 Title = j.Title,
                 Description = j.Description,
+                Category = j.Category,
                 Requirements = j.Requirements,
                 Budget = j.Budget,
                 Deadline = j.Deadline,
@@ -74,6 +76,7 @@ public class JobService
                 Id = j.Id,
                 Title = j.Title,
                 Description = j.Description,
+                Category = j.Category,
                 Requirements = j.Requirements,
                 Budget = j.Budget,
                 Deadline = j.Deadline,
@@ -109,6 +112,7 @@ public class JobService
 
         job.Title = dto.Title;
         job.Description = dto.Description;
+        job.Category = dto.Category;
         job.Requirements = dto.Requirements;
         job.Budget = dto.Budget;
         job.Deadline = dto.Deadline;
@@ -169,6 +173,7 @@ public class JobService
                 Id = j.Id,
                 Title = j.Title,
                 Description = j.Description,
+                Category = j.Category,
                 Requirements = j.Requirements,
                 Budget = j.Budget,
                 Deadline = j.Deadline,

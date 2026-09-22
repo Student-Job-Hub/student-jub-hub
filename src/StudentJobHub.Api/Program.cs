@@ -119,11 +119,16 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // ============================================================
-// SEED DEFAULT ROLES
+// AUTOMATIC MIGRATIONS & SEED DEFAULT ROLES
 // ============================================================
 
 using (var scope = app.Services.CreateScope())
 {
+    var dbContext = scope.ServiceProvider
+        .GetRequiredService<ApplicationDbContext>();
+
+    await dbContext.Database.MigrateAsync();
+
     var roleManager = scope.ServiceProvider
         .GetRequiredService<RoleManager<IdentityRole>>();
 

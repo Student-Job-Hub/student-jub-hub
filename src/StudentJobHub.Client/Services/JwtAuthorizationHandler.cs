@@ -38,8 +38,15 @@ public class JwtAuthorizationHandler : DelegatingHandler
                 new AuthenticationHeaderValue("Bearer", token);
         }
 
-        return await base.SendAsync(
+        var response = await base.SendAsync(
             request,
             cancellationToken);
+
+        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            await _authService.LogoutAsync();
+        }
+
+        return response;
     }
 }

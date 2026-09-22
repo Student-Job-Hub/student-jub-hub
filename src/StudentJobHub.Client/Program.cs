@@ -61,10 +61,18 @@ builder.Services.AddScoped<UserApiService>(sp =>
         sp.GetRequiredService<IHttpClientFactory>()
             .CreateClient("AuthorizedClient")));
 
+// UI Polish services
+builder.Services.AddScoped<ToastService>();
+builder.Services.AddScoped<ThemeService>();
+
 var host = builder.Build();
 
 // Restore JWT from localStorage
 var authService = host.Services.GetRequiredService<AuthService>();
 await authService.InitializeAsync();
+
+// Initialize theme preference
+var themeService = host.Services.GetRequiredService<ThemeService>();
+await themeService.InitializeThemeAsync();
 
 await host.RunAsync();

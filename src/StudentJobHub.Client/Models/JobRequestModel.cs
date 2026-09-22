@@ -11,6 +11,9 @@ public class CreateJobModel
     [StringLength(2000, ErrorMessage = "Description cannot exceed 2000 characters.")]
     public string Description { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "Category is required.")]
+    public string Category { get; set; } = "Tech & IT";
+
     [Required(ErrorMessage = "Requirements are required.")]
     [StringLength(1000, ErrorMessage = "Requirements cannot exceed 1000 characters.")]
     public string Requirements { get; set; } = string.Empty;

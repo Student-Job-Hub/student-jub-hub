@@ -56,6 +56,28 @@ public class ServiceService
             .ToListAsync();
     }
 
+    public async Task<List<ServiceResponseDto>> GetByProviderIdAsync(string providerId)
+    {
+        return await _context.Services
+            .Include(s => s.Provider)
+            .Where(s => s.ProviderId == providerId)
+            .OrderByDescending(s => s.CreatedAt)
+            .Select(s => new ServiceResponseDto
+            {
+                Id = s.Id,
+                Title = s.Title,
+                Description = s.Description,
+                Category = s.Category,
+                Price = s.Price,
+                ProviderId = s.ProviderId,
+                ProviderName = s.Provider != null
+                    ? s.Provider.FullName
+                    : string.Empty,
+                CreatedAt = s.CreatedAt
+            })
+            .ToListAsync();
+    }
+
     public async Task<ServiceResponseDto?> GetByIdAsync(int id)
     {
         return await GetResponseAsync(id);

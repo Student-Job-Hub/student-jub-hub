@@ -4,6 +4,7 @@
 @inject ServiceApiService ServiceApiService
 @inject UserApiService UserApiService
 @inject AuthService AuthService
+@inject ToastService ToastService
 
 <PageTitle>Services | Student Job Hub</PageTitle>
 
@@ -18,7 +19,11 @@
 
     @if (isLoading)
     {
-        <div class="loading-state">Loading services...</div>
+        <div class="services-grid" style="margin-top: 20px;">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+        </div>
     }
     else if (!string.IsNullOrEmpty(errorMessage))
     {
@@ -37,8 +42,30 @@
     }
     else
     {
+        <div class="services-toolbar" style="margin-bottom: 20px; display: flex; gap: 12px; align-items: center; justify-content: space-between;">
+            <span>
+                <strong>@FilteredServices.Count()</strong> service@(FilteredServices.Count() == 1 ? "" : "s") available
+            </span>
+
+            <div style="display:flex; gap:10px; align-items:center;">
+                <input type="text" 
+                       placeholder="Search services..." 
+                       @bind="searchTerm" 
+                       @bind:event="oninput" 
+                       style="padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem;" />
+
+                <select @bind="selectedCategory" style="padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem;">
+                    <option value="All">All Categories</option>
+                    @foreach (var cat in Categories)
+                    {
+                        <option value="@cat">@cat</option>
+                    }
+                </select>
+            </div>
+        </div>
+
         <div class="services-grid">
-            @foreach (var service in services)
+            @foreach (var service in FilteredServices)
             {
                 <div class="service-card">
                     <div class="service-header">
@@ -74,6 +101,38 @@
     private string? errorMessage;
     private string? currentUserId;
     private int? deletingServiceId;
+
+    private string searchTerm = string.Empty;
+    private string selectedCategory = "All";
+
+    private IEnumerable<string> Categories =>
+        services.Select(s => s.Category).Where(c => !string.IsNullOrWhiteSpace(c)).Distinct().OrderBy(c => c);
+
+    private IEnumerable<ServiceModel> FilteredServices
+    {
+        get
+        {
+            var result = services.AsEnumerable();
+
+            if (selectedCategory != "All")
+            {
+                result = result.Where(s => s.Category == selectedCategory);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var term = searchTerm.Trim().ToLowerInvariant();
+                result = result.Where(s =>
+                    (s.Title != null && s.Title.ToLowerInvariant().Contains(term)) ||
+                    (s.Description != null && s.Description.ToLowerInvariant().Contains(term)) ||
+                    (s.Category != null && s.Category.ToLowerInvariant().Contains(term)) ||
+                    (s.ProviderName != null && s.ProviderName.ToLowerInvariant().Contains(term))
+                );
+            }
+
+            return result;
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {

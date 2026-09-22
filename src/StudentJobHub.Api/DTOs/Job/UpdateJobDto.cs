@@ -13,6 +13,10 @@ public class UpdateJobDto
     public string Description { get; set; } = string.Empty;
 
     [Required]
+    [StringLength(100)]
+    public string Category { get; set; } = "General";
+
+    [Required]
     [StringLength(1000)]
     public string Requirements { get; set; } = string.Empty;
 

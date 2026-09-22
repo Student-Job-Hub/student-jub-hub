@@ -74,6 +74,15 @@
             </div>
 
             <div class="stat-card">
+                <div class="stat-icon">🛠️</div>
+
+                <div>
+                    <h3>@myServiceCount</h3>
+                    <p>My Offered Services</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
                 <div class="stat-icon">⭐</div>
 
                 <div>
@@ -159,6 +168,40 @@
 
             </div>
 
+        </section>
+
+        <!-- Application Breakdown -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2>Application Status Overview</h2>
+                <a href="/my-applications">View Details</a>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: #fffbebf5; border: 1px solid #fef3c7; border-radius: 10px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <span style="font-size: 0.85rem; color: #92400e; font-weight: 600; text-transform: uppercase;">Pending</span>
+                        <h3 style="margin: 0.25rem 0 0; font-size: 1.75rem; color: #78350f;">@pendingApplicationCount</h3>
+                    </div>
+                    <span style="font-size: 2rem;">⏳</span>
+                </div>
+
+                <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 10px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <span style="font-size: 0.85rem; color: #166534; font-weight: 600; text-transform: uppercase;">Accepted</span>
+                        <h3 style="margin: 0.25rem 0 0; font-size: 1.75rem; color: #14532d;">@acceptedApplicationCount</h3>
+                    </div>
+                    <span style="font-size: 2rem;">🎉</span>
+                </div>
+
+                <div style="background: #fef2f2; border: 1px solid #fee2e2; border-radius: 10px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <span style="font-size: 0.85rem; color: #991b1b; font-weight: 600; text-transform: uppercase;">Rejected</span>
+                        <h3 style="margin: 0.25rem 0 0; font-size: 1.75rem; color: #7f1d1d;">@rejectedApplicationCount</h3>
+                    </div>
+                    <span style="font-size: 2rem;">❌</span>
+                </div>
+            </div>
         </section>
 
         <!-- Recent Jobs -->
@@ -467,7 +510,11 @@
 
     private List<JobModel> jobs = new();
     private int applicationCount;
+    private int pendingApplicationCount;
+    private int acceptedApplicationCount;
+    private int rejectedApplicationCount;
     private int serviceCount;
+    private int myServiceCount;
     private int unreadNotificationCount;
 
     private bool isLoading = true;
@@ -505,8 +552,21 @@
             {
                 try
                 {
+                    var myServices = await ServiceApiService.GetMyServicesAsync();
+                    myServiceCount = myServices.Count;
+                }
+                catch
+                {
+                    myServiceCount = 0;
+                }
+
+                try
+                {
                     var myApplications = await ApplicationService.GetMyApplicationsAsync();
                     applicationCount = myApplications.Count;
+                    pendingApplicationCount = myApplications.Count(a => string.Equals(a.Status, "Pending", StringComparison.OrdinalIgnoreCase));
+                    acceptedApplicationCount = myApplications.Count(a => string.Equals(a.Status, "Accepted", StringComparison.OrdinalIgnoreCase));
+                    rejectedApplicationCount = myApplications.Count(a => string.Equals(a.Status, "Rejected", StringComparison.OrdinalIgnoreCase));
                 }
                 catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
