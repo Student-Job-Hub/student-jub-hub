@@ -2,6 +2,7 @@
 @using StudentJobHub.Client.Models
 @using StudentJobHub.Client.Services
 @inject JobApiService JobService
+@inject ToastService ToastService
 
 <PageTitle>Jobs | Student Job Hub</PageTitle>
 
@@ -23,9 +24,10 @@
 
     @if (isLoading)
     {
-        <div class="loading-container">
-            <div class="spinner"></div>
-            <p>Loading jobs...</p>
+        <div class="jobs-grid" style="margin-top: 20px;">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
         </div>
     }
     else if (!string.IsNullOrEmpty(errorMessage))
@@ -58,14 +60,30 @@
     {
         <div class="jobs-toolbar">
             <span>
-                <strong>@jobs.Count</strong> job@(jobs.Count == 1 ? "" : "s") available
+                <strong>@FilteredJobs.Count()</strong> job@(FilteredJobs.Count() == 1 ? "" : "s") available
             </span>
 
-            <select @bind="selectedFilter">
-                <option value="All">All Jobs</option>
-                <option value="Open">Open Jobs</option>
-                <option value="Closed">Closed Jobs</option>
-            </select>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <input type="text" 
+                       placeholder="Search jobs..." 
+                       @bind="searchTerm" 
+                       @bind:event="oninput" 
+                       style="padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem;" />
+
+                <select @bind="selectedCategory" style="padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem;">
+                    <option value="All">All Categories</option>
+                    @foreach (var cat in Categories)
+                    {
+                        <option value="@cat">@cat</option>
+                    }
+                </select>
+
+                <select @bind="selectedFilter" style="padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem;">
+                    <option value="All">All Jobs</option>
+                    <option value="Open">Open Jobs</option>
+                    <option value="Closed">Closed Jobs</option>
+                </select>
+            </div>
         </div>
 
         <div class="jobs-grid">
@@ -79,18 +97,26 @@
                             💼
                         </div>
 
-                        @if (job.IsOpen)
-                        {
-                            <span class="status open">
-                                Open
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="status closed">
-                                Closed
-                            </span>
-                        }
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            @if (!string.IsNullOrWhiteSpace(job.Category))
+                            {
+                                <span class="status" style="background: #e0f2fe; color: #0369a1; font-weight: 500;">
+                                    @job.Category
+                                </span>
+                            }
+                            @if (job.IsOpen)
+                            {
+                                <span class="status open">
+                                    Open
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="status closed">
+                                    Closed
+                                </span>
+                            }
+                        </div>
                     </div>
 
                     <div class="job-content">
@@ -443,14 +469,43 @@
     private string? errorMessage;
 
     private string selectedFilter = "All";
+    private string selectedCategory = "All";
+    private string searchTerm = string.Empty;
 
-    private IEnumerable<JobModel> FilteredJobs =>
-        selectedFilter switch
+    private IEnumerable<string> Categories =>
+        jobs.Select(j => j.Category).Where(c => !string.IsNullOrWhiteSpace(c)).Distinct().OrderBy(c => c);
+
+    private IEnumerable<JobModel> FilteredJobs
+    {
+        get
         {
-            "Open" => jobs.Where(j => j.IsOpen),
-            "Closed" => jobs.Where(j => !j.IsOpen),
-            _ => jobs
-        };
+            var result = selectedFilter switch
+            {
+                "Open" => jobs.Where(j => j.IsOpen),
+                "Closed" => jobs.Where(j => !j.IsOpen),
+                _ => jobs.AsEnumerable()
+            };
+
+            if (selectedCategory != "All")
+            {
+                result = result.Where(j => j.Category == selectedCategory);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var term = searchTerm.Trim().ToLowerInvariant();
+                result = result.Where(j =>
+                    (j.Title != null && j.Title.ToLowerInvariant().Contains(term)) ||
+                    (j.Description != null && j.Description.ToLowerInvariant().Contains(term)) ||
+                    (j.Category != null && j.Category.ToLowerInvariant().Contains(term)) ||
+                    (j.Requirements != null && j.Requirements.ToLowerInvariant().Contains(term)) ||
+                    (j.PostedByName != null && j.PostedByName.ToLowerInvariant().Contains(term))
+                );
+            }
+
+            return result;
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {

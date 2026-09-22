@@ -4,6 +4,7 @@
 @using StudentJobHub.Client.Services
 
 @inject JobApiService JobApiService
+@inject ToastService ToastService
 
 <PageTitle>My Jobs</PageTitle>
 
@@ -28,8 +29,9 @@
 
     @if (isLoading)
     {
-        <div class="loading-card">
-            <p>Loading your jobs...</p>
+        <div class="jobs-grid" style="margin-top: 20px;">
+            <SkeletonCard />
+            <SkeletonCard />
         </div>
     }
     else if (!string.IsNullOrEmpty(errorMessage))
