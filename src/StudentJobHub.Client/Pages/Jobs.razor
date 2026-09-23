@@ -93,9 +93,9 @@
                 <div class="job-card">
 
                     <div class="job-card-header">
-                        <div class="job-icon">
-                            💼
-                        </div>
+                        <div class="job-icon"><i class="bi bi-bag"></i></div>
+                            
+                    
 
                         <div style="display:flex; gap:6px; align-items:center;">
                             @if (!string.IsNullOrWhiteSpace(job.Category))
@@ -247,7 +247,7 @@
 
     .job-card {
         background: white;
-        border: 1px solid #e5e7eb;
+        border: 1px solid #576a91ff;
         border-radius: 14px;
         overflow: hidden;
         transition: transform 0.2s, box-shadow 0.2s;
@@ -274,6 +274,10 @@
         background: #eff6ff;
         border-radius: 10px;
         font-size: 22px;
+    }
+
+    .job-icon i {
+        color: #2563eb;
     }
 
     .status {
