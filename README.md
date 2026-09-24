@@ -56,13 +56,20 @@
 - **Service Feed & Categories (`/services`)**: Browse campus services (e.g., tutoring, graphic design, tech support) with category tags and prices.
 - **Provider Tools**: Service creation (`/create-service`), editing, and provider profile linking.
 
+
 ### 🔔 5. Notifications & Reviews
 - **Real-Time SignalR Alerts**: Instant notifications for application events.
 - **Notification Inbox (`/notifications`)**: Read/unread status toggles and deletion.
 - **Peer Reviews (`/reviews/{userId}`)**: 1–5 star rating system with comment feedback (self-review and duplicate review guards).
 
+### 🔔 6. Settings & Profile
+- **Settings Page (`/settings`)**: Theme toggle (Light/Dark).
+- **Profile Management (`/profile`)**: Manage profile (Full Name, University, Bio) and Security (Password).
+
+
+
 ### 👤 6. User Profile Management
-- **Profile Center (`/profile`)**: Manage Full Name, University affiliation, Bio, and Avatar URLs with role indicators.
+- **Profile Center (`/profile`)**: Manage Full Name, Phone Number, Email, University affiliation, Bio, and Avatar URLs with role indicators.
 
 ---
 
