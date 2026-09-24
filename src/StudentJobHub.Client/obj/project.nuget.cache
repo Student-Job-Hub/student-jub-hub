@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EQUmMgpyfw4=",
+  "dgSpecHash": "bkEKV18aYPw=",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\Downloads\\StudentJobHub\\src\\StudentJobHub.Client\\StudentJobHub.Client.csproj",
   "expectedPackageFiles": [
@@ -26,6 +26,8 @@
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\10.0.9\\microsoft.extensions.fileproviders.physical.10.0.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\10.0.9\\microsoft.extensions.filesystemglobbing.10.0.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.http\\10.0.11\\microsoft.extensions.http.10.0.11.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.localization\\10.0.1\\microsoft.extensions.localization.10.0.1.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.localization.abstractions\\10.0.1\\microsoft.extensions.localization.abstractions.10.0.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.logging\\10.0.11\\microsoft.extensions.logging.10.0.11.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.11\\microsoft.extensions.logging.abstractions.10.0.11.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.options\\10.0.11\\microsoft.extensions.options.10.0.11.nupkg.sha512",
@@ -36,6 +38,7 @@
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.jsinterop.webassembly\\10.0.9\\microsoft.jsinterop.webassembly.10.0.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.net.illink.tasks\\10.0.11\\microsoft.net.illink.tasks.10.0.11.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\10.0.11\\microsoft.net.sdk.webassembly.pack.10.0.11.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\mudblazor\\9.10.0\\mudblazor.9.10.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\10.0.11\\microsoft.netcore.app.runtime.mono.browser-wasm.10.0.11.nupkg.sha512"
   ],
   "logs": []
