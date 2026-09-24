@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudentJobHub.Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+443b4a37184f8a19616e8e0c876e96c4318a4eae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66ce24bade10d506e237b5c4860238d1ce4153c6")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudentJobHub.Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudentJobHub.Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
