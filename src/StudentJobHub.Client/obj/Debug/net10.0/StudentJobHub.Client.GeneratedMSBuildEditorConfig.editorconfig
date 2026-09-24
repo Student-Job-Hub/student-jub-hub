@@ -37,6 +37,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb25maXJtTW9kYWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/USER/Downloads/StudentJobHub/src/StudentJobHub.Client/Components/ProfileCard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQcm9maWxlQ2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/USER/Downloads/StudentJobHub/src/StudentJobHub.Client/Components/SkeletonCard.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTa2VsZXRvbkNhcmQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

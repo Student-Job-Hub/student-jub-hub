@@ -1,0 +1,369 @@
+@using StudentJobHub.Client.Models
+@using StudentJobHub.Client.Services
+@inject UserApiService UserService
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<div class="profile-card">
+    @if (User != null)
+    {
+        <div class="profile-header">
+            <!-- Label wrapper linked directly to InputFile via 'for' attribute -->
+            <label for="profile-picture-input" class="avatar-container" title="Click to change profile picture">
+                @if (!string.IsNullOrEmpty(model.ProfilePictureUrl ?? User.ProfilePictureUrl))
+                {
+                    <img src="@(model.ProfilePictureUrl ?? User.ProfilePictureUrl)" alt="Profile Picture" class="profile-picture" />
+                }
+                else
+                {
+                    <div class="avatar">@GetInitials(User.FullName)</div>
+                }
+
+                <!-- Hover Overlay Badge -->
+                <div class="avatar-overlay">
+                    <i class="bi bi-camera-fill"></i>
+                    <span>Change Photo</span>
+                </div>
+            </label>
+
+            <!-- InputFile with matching id (hidden natively via display: none) -->
+            <InputFile id="profile-picture-input" OnChange="OnProfilePictureSelected" accept="image/*" class="hidden-file-input" />
+        </div>
+
+        <div class="user-roles">
+            @if (User.Roles != null && User.Roles.Any())
+            {
+                <p class="roles">@string.Join(", ", User.Roles)</p>
+            }
+        </div>
+
+        <EditForm Model="@model" OnValidSubmit="HandleSaveAsync">
+            <DataAnnotationsValidator />
+
+            @if (!string.IsNullOrEmpty(successMessage))
+            {
+                <div class="alert alert-success">@successMessage</div>
+            }
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
+
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <InputText id="fullName" class="form-control" @bind-Value="model.FullName" />
+                <ValidationMessage For="@(() => model.FullName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <InputText id="email" class="form-control" @bind-Value="model.Email" disabled />
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <InputText id="phoneNumber" class="form-control" @bind-Value="model.PhoneNumber" />
+                <ValidationMessage For="@(() => model.PhoneNumber)" />
+            </div>
+          
+            <div class="form-group">
+                <label for="university">University</label>
+                <InputSelect id="university" class="form-control" @bind-Value="model.University">
+                    <option value="">-- Select a University --</option>
+                    <option value="UG">University of Ghana (UG - Legon)</option>
+                    <option value="KNUST">Kwame Nkrumah University of Science and Technology (KNUST)</option>
+                    <option value="UCC">University of Cape Coast (UCC)</option>
+                    <option value="UPSA">University of Professional Studies, Accra (UPSA)</option>
+                    <option value="UEW">University of Education, Winneba (UEW)</option>
+                    <option value="UAT">University of Mines and Technology (UMaT)</option>
+                    <option value="UHAS">University of Health and Allied Sciences (UHAS)</option>
+                    <option value="UENR">University of Energy and Natural Resources (UENR)</option>
+                    <option value="SDD-UBIDS">SD Dombo University of Business and Integrated Development Studies</option>
+                    <option value="AAMUSTED">Services and Technical University (AAMUSTED)</option>
+                    <option value="ATU">Accra Technical University (ATU)</option>
+                    <option value="KsTU">Kumasi Technical University (KsTU)</option>
+                    <option value="TTU">Takoradi Technical University (TTU)</option>
+                    <option value="HTU">Ho Technical University (HTU)</option>
+                    <option value="KTU">Koforidua Technical University (KTU)</option>
+                    <option value="Ashesi">Ashesi University</option>
+                    <option value="Central">Central University</option>
+                    <option value="Valley View">Valley View University</option>
+                    <option value="Pentecost">Pentecost University</option>
+                    <option value="GCTU">Ghana Communication Technology University (GCTU)</option>
+                    <option value="Lancaster">Lancaster University Ghana</option>
+                    <option value="Academic City">Academic City University College</option>
+                    <option value="Other">Other / Not Listed</option>
+                </InputSelect>
+            </div>
+              
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <InputTextArea id="bio" class="form-control" rows="4" @bind-Value="model.Bio" />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="primary-button" disabled="@isSaving">
+                    @(isSaving ? "Saving..." : "Save Profile")
+                </button>
+                <button type="button" class="secondary-button" @onclick="LogoutAsync">Logout</button>
+            </div>
+        </EditForm>
+    }
+</div>
+
+<style>
+    .profile-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 24px;
+        border: 1px solid #576a91ff;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .profile-header {
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    /* Label as Avatar Container */
+    .avatar-container {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        cursor: pointer;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+        border: 1px solid #b9bcc3ff;
+        display: block;
+    }
+
+    .profile-picture {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #2563eb;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    /* Hover overlay logic */
+    .avatar-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s ease-in-out;
+        font-size: 11px;
+        font-weight: 600;
+        text-align: center;
+        padding: 4px;
+    }
+
+    .avatar-overlay i {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    .avatar-container:hover .avatar-overlay {
+        opacity: 1;
+    }
+
+    .hidden-file-input {
+        display: none !important;
+    }
+
+    .user-roles {
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        color: black;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .primary-button {
+        background-color: #2563eb;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .secondary-button {
+        background-color: #ef4444;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .alert {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+
+    .alert-success { background: #f0fdf4; color: #166534; border: 1px solid #dcfce7; }
+    .alert-danger { background: #fef2f2; color: #991b1b; border: 1px solid #fee2e2; }
+</style>
+
+@code {
+    [Parameter]
+    public UserModel? User { get; set; }
+
+    [Parameter]
+    public EventCallback OnProfileUpdated { get; set; }
+
+    private UpdateProfileModel model = new();
+    private string successMessage = "";
+    private string errorMessage = "";
+    private bool isSaving = false;
+
+    protected override void OnParametersSet()
+    {
+        if (User != null)
+        {
+            model = new UpdateProfileModel
+            {
+                FullName = User.FullName ?? "",
+                Email = User.Email ?? "",
+                PhoneNumber = User.PhoneNumber ?? "",
+                University = User.University ?? "",
+                Bio = User.Bio ?? "",
+                ProfilePictureUrl = User.ProfilePictureUrl
+            };
+        }
+    }
+
+    private string GetInitials(string? fullName)
+    {
+        if (string.IsNullOrWhiteSpace(fullName)) return "U";
+
+        var parts = fullName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length >= 2)
+        {
+            return $"{parts[0][0]}{parts[^1][0]}".ToUpper();
+        }
+
+        return fullName.Length >= 2 ? fullName.Substring(0, 2).ToUpper() : fullName.ToUpper();
+    }
+
+    private async Task OnProfilePictureSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file != null)
+        {
+            try
+            {
+                // Resize image to max 500x500 for lightweight inline preview
+                var resizedImage = await file.RequestImageFileAsync("image/png", 500, 500);
+                using var stream = resizedImage.OpenReadStream(maxAllowedSize: 5 * 1024 * 1024); // 5MB limit
+                using var memoryStream = new MemoryStream();
+                await stream.CopyToAsync(memoryStream);
+
+                // Convert image to Base64 Data URL for immediate preview and binding
+                var base64Image = Convert.ToBase64String(memoryStream.ToArray());
+                model.ProfilePictureUrl = $"data:image/png;base64,{base64Image}";
+
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Error loading image file: {ex.Message}";
+            }
+        }
+    }
+
+    private async Task HandleSaveAsync()
+    {
+        isSaving = true;
+        successMessage = "";
+        errorMessage = "";
+
+        try
+        {
+            var response = await UserService.UpdateCurrentUserAsync(model);
+            if (response.IsSuccessStatusCode)
+            {
+                successMessage = "Profile saved successfully!";
+                if (OnProfileUpdated.HasDelegate)
+                {
+                    await OnProfileUpdated.InvokeAsync();
+                }
+            }
+            else
+            {
+                errorMessage = "Failed to update profile. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to save profile: {ex.Message}";
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+
+    private async Task LogoutAsync()
+    {
+        await AuthService.LogoutAsync();
+        Navigation.NavigateTo("/login");
+    }
+}

@@ -43,6 +43,7 @@ public class AuthService
             UserName = dto.Email,
             Email = dto.Email,
             FullName = dto.FullName,
+            PhoneNumber = dto.PhoneNumber,
             University = dto.University
         };
 
@@ -101,7 +102,8 @@ public class AuthService
             new(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
             new(ClaimTypes.NameIdentifier, user.Id),
             new(ClaimTypes.Name, user.FullName),
-            new(ClaimTypes.Email, user.Email ?? string.Empty)
+            new(ClaimTypes.Email, user.Email ?? string.Empty),
+            new(ClaimTypes.MobilePhone, user.PhoneNumber ?? string.Empty)
         };
 
         claims.AddRange(

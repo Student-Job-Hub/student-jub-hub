@@ -43,6 +43,7 @@ public class UsersController : ControllerBase
             user.Id,
             user.FullName,
             user.Email,
+            user.PhoneNumber,
             user.University,
             user.Bio,
             user.ProfilePictureUrl,
@@ -77,6 +78,11 @@ public class UsersController : ControllerBase
             user.University = dto.University.Trim();
         }
 
+        if (dto.PhoneNumber != null)
+        {
+            user.PhoneNumber = dto.PhoneNumber.Trim();
+        }
+
         if (dto.Bio != null)
         {
             user.Bio = dto.Bio.Trim();
@@ -103,6 +109,7 @@ public class UsersController : ControllerBase
             user.Id,
             user.FullName,
             user.Email,
+            user.PhoneNumber,
             user.University,
             user.Bio,
             user.ProfilePictureUrl
@@ -153,6 +160,7 @@ public class UserController : ControllerBase
             user.Id,
             user.FullName,
             user.Email,
+            user.PhoneNumber,
             user.University,
             user.Bio,
             user.ProfilePictureUrl,
@@ -192,6 +200,11 @@ public class UserController : ControllerBase
             user.Bio = dto.Bio.Trim();
         }
 
+        if (dto.PhoneNumber != null)
+        {
+            user.PhoneNumber = dto.PhoneNumber.Trim();
+        }
+
         if (dto.ProfilePictureUrl != null)
         {
             user.ProfilePictureUrl = dto.ProfilePictureUrl.Trim();
@@ -213,6 +226,7 @@ public class UserController : ControllerBase
             user.Id,
             user.FullName,
             user.Email,
+            user.PhoneNumber,
             user.University,
             user.Bio,
             user.ProfilePictureUrl
