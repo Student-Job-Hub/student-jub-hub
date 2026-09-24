@@ -18,6 +18,13 @@ public class NotificationService
             ?? new List<NotificationModel>();
     }
 
+    public async Task<HttpResponseMessage> CreateNotificationAsync(CreateNotificationRequest request)
+    {
+        var response = await _httpClient.PostAsJsonAsync("api/notifications", request);
+        response.EnsureSuccessStatusCode();
+        return response;
+    }
+
     public async Task<HttpResponseMessage> MarkAsReadAsync(int id)
     {
         return await _httpClient.PatchAsync($"api/notifications/{id}/read", null);
