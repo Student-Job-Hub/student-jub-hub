@@ -1,4 +1,5 @@
 @inherits LayoutComponentBase
+@inject NavigationManager Navigation
 @inject ThemeService ThemeService
 @implements IDisposable
 
@@ -8,24 +9,99 @@
     </div>
 
     <main>
+        <!-- Updated Top Navbar with Search and Utilities -->
         <div class="top-row px-4 d-flex justify-content-between align-items-center">
-            <!-- <div>
-                <button class="theme-toggle-btn" @onclick="ToggleTheme">
-                    @(ThemeService.IsDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode")
-                </button>
-            </div> -->
-            <a href="https://learn.microsoft.com/aspnet/core1/" target="_blank">About</a>
+            <!-- Right Side Utility Controls -->
+            <div class="d-flex align-items-center gap-3 ms-auto">
+                <!-- Settings Icon -->
+                <a href="/settings" class="icon-btn position-relative" title="Settings">
+                    <i class="bi bi-gear fs-5"></i>
+                </a>
+                <!-- Notifications Icon -->
+                <a href="/notifications" class="icon-btn position-relative" title="Notifications">
+                    <i class="bi bi-bell fs-5"></i>
+                </a>
+
+                <!-- Vertical Divider -->
+                <div class="vr mx-1"></div>
+
+                <!-- User Profile Quick Badge -->
+                <a href="/profile" class="user-badge text-decoration-none d-flex align-items-center gap-2">
+                    <div class="user-avatar-sm">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <span class="d-none d-md-inline text-dark fw-semibold">My Account</span>
+                </a>
+            </div>
         </div>
 
         <article class="content px-4">
             @Body
         </article>
+        
+        <FooterLayout />
     </main>
 
     <ToastContainer />
 </div>
 
+<style>
+    .top-row {
+        height: 3.5rem;
+        background-color: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .topbar-search {
+        width: 320px;
+    }
+
+    .search-input:focus {
+        box-shadow: none;
+        border-color: #d1d5db;
+    }
+
+    .icon-btn {
+        background: transparent;
+        border: none;
+        color: #4b5563;
+        font-size: 1.1rem;
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+    .icon-btn:hover {
+        background-color: #f3f4f6;
+        color: #2563eb;
+    }
+
+    .user-avatar-sm {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: #2563eb;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+    }
+
+    @@media (max-width: 576px) {
+        .topbar-search {
+            width: 180px;
+        }
+    }
+</style>
+
 @code {
+    private string searchTerm = "";
+
     protected override void OnInitialized()
     {
         ThemeService.OnThemeChanged += StateHasChangedHandler;
@@ -39,6 +115,24 @@
     private async Task ToggleTheme()
     {
         await ThemeService.ToggleThemeAsync();
+    }
+
+    private void HandleKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            ExecuteSearch();
+        }
+    }
+
+    private void ExecuteSearch()
+    {
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var query = Uri.EscapeDataString(searchTerm.Trim());
+            Navigation.NavigateTo($"/jobs?q={query}");
+            searchTerm = "";
+        }
     }
 
     public void Dispose()

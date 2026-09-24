@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using StudentJobHub.Client;
 using StudentJobHub.Client.Services;
+using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
+builder.Services.AddMudServices();
 
 var apiBaseUrl = "http://localhost:5205/";
 
