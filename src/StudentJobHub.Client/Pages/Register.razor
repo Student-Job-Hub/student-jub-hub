@@ -44,6 +44,18 @@
             </div>
 
             <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+
+                <InputText
+                    id="phoneNumber"
+                    class="form-control"
+                    @bind-Value="model.PhoneNumber"
+                    placeholder="Enter your phone number" />
+
+                <ValidationMessage For="@(() => model.PhoneNumber)" />
+            </div>
+
+            <div class="form-group">
                 <label for="password">Password</label>
 
                 <InputText
@@ -68,16 +80,26 @@
 
                 <ValidationMessage For="@(() => model.ConfirmPassword)" />
             </div>
+           <!-- a drop down of list to select a universirty from in Ghana -->
+           <div class="form-group">
+               <label for="university">University</label>
 
-            <div class="form-group">
-                <label for="university">University</label>
+               <InputSelect
+                   id="university"
+                   class="form-control"
+                   @bind-Value="model.University">
 
-                <InputText
-                    id="university"
-                    class="form-control"
-                    @bind-Value="model.University"
-                    placeholder="Enter your university" />
-            </div>
+                   <option value="">Select a university</option>
+                   <option value="University of Ghana">University of Ghana</option>
+                   <option value="Kwame Nkrumah University of Science and Technology">Kwame Nkrumah University of Science and Technology</option>
+                   <option value="University of Cape Coast">University of Cape Coast</option>
+                   <option value="University of Education, Winneba">University of Education, Winneba</option>
+                   <option value="University of Professional Studies, Accra">University of Professional Studies, Accra</option>
+                   <option value="GIMPA">GIMPA</option>
+                   <option value="Other">Other</option>
+               </InputSelect>
+           </div>
+           
 
             <div class="form-group">
                 <label for="role">Account Type</label>
@@ -91,6 +113,16 @@
                     <option value="Business">Business</option>
                     <option value="Lecturer">Lecturer</option>
                 </InputSelect>
+            </div>
+
+            <!-- adding an optional profile picture upload field -->
+            <div class="form-group">
+                <label for="ProfilePictureUrl">Profile Picture</label>
+
+                <InputFile
+                    id="ProfilePictureUrl"
+                    class="form-control"
+                    @bind-Value="model.ProfilePictureUrl" />
             </div>
 
             @if (!string.IsNullOrWhiteSpace(errorMessage))
