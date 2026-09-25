@@ -14,7 +14,7 @@
             <h1>Services Marketplace</h1>
             <p>Find campus services and skills posted by members.</p>
         </div>
-        <a href="/create-service" class="primary-button">Post a Service</a>
+        <a href="/create-service" class="details-button">Post a Service</a>
     </div>
 
     @if (isLoading)
@@ -63,25 +63,25 @@
                 </select>
             </div>
         </div>
-
-        <div class="services-grid">
+      
+        <div class="services-flex">
             @foreach (var service in FilteredServices)
             {
                 <div class="service-card">
                     <div class="service-header">
-                        <h2>@service.Title</h2>
-                        <span class="badge">@service.Category</span>
+                        <h2 style="position: relative; top: 5px;">@service.Title</h2>
+                        <span class="badge" style="color:#0369a1 ; background-color: #ffffff">@service.Category</span>
                     </div>
-                    <p>@service.Description</p>
-                    <div class="meta">
+                    <p style="font-size: 18px; position: relative; top: 5px;">@service.Description</p>
+                    <div class="meta" style="margin-top: 10px; margin-bottom: 5px; font-weight: bold; font-size: 16px;">
                         <strong>GH₵ @service.Price.ToString("N2")</strong>
                         <span>By @service.ProviderName</span>
                     </div>
                     <div class="actions">
-                        <a href="/services/@service.Id" class="secondary-button">View Details</a>
+                        <a href="/services/@service.Id" class="details-button">View Details</a>
                         @if (IsOwner(service))
                         {
-                            <a href="/services/edit/@service.Id" class="secondary-button">Edit</a>
+                            <a href="/services/edit/@service.Id" class="edit-button">Edit</a>
                             <button class="danger-button"
                                     @onclick="() => DeleteServiceAsync(service.Id)"
                                     disabled="@IsDeleting(service.Id)">
@@ -94,6 +94,55 @@
         </div>
     }
 </div>
+
+<style>
+   .services-flex {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+   }
+
+    .service-card {
+    border: 1px solid #e2e8f0;
+    background-color: #f7f2f2ff;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+  
+   }
+
+   .service-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+   }
+    .details-button,
+    .edit-button {
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 6px;
+    }
+
+    .danger-button {
+        background-color: #ef4444;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+</style>
 
 @code {
     private List<ServiceModel> services = new();
