@@ -1,4 +1,4 @@
-# 🎓 Student Job Hub
+#  Student Job Hub
 
 [![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![Blazor WASM](https://img.shields.io/badge/Frontend-Blazor%20WebAssembly-512BD4?logo=blazor)](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
@@ -10,7 +10,7 @@
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Overview](#-overview)
 - [Key Features](#-key-features)
@@ -26,7 +26,7 @@
 
 ---
 
-## 🚀 Overview
+##  Overview
 
 **Student Job Hub** provides a centralized digital campus ecosystem for work and freelance opportunities:
 - **Students** can discover flexible part-time jobs, apply with personalized messages, track application progress, and offer skill-based services.
@@ -35,45 +35,45 @@
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-### 🔐 1. Authentication & Security
+###  1. Authentication & Security
 - **JWT Bearer Auth**: Secure token-based authentication with `localStorage` client persistence.
 - **Role-Based Authorization**: Tailored capabilities for `Student`, `Business`, `Lecturer`, and `Admin`.
 - **Identity Security**: Password hashing, claim-based authorization, and protected endpoints.
 
-### 💼 2. Job Marketplace
+###  2. Job Marketplace
 - **Job Listings (`/jobs`)**: Filter open/closed opportunities, view budgets in GH₵, and track deadlines.
 - **Detailed Job View (`/jobs/{id}`)**: Dynamic interface presenting owner management actions (`Edit`, `Close`, `Delete`, `Applications`) or student `Apply` controls.
 - **Job Posting & Management**: Form validation, deadline controls, owner job management (`/my-jobs`), and status toggles.
 
-### 📄 3. Application System
+###  3. Application System
 - **Job Application Flow**: Students submit applications with custom pitch messages. Self-application and duplicate application guards enforced.
 - **Application Tracking (`/my-applications`)**: Real-time status updates (`Pending`, `Accepted`, `Rejected`) with pending withdrawal option.
 - **Owner Review Panel (`/my-jobs/{id}/applications`)**: Job posters inspect applicants and update status with instant feedback.
 
-### 🛠️ 4. Services Marketplace
+###  4. Services Marketplace
 - **Service Feed & Categories (`/services`)**: Browse campus services (e.g., tutoring, graphic design, tech support) with category tags and prices.
 - **Provider Tools**: Service creation (`/create-service`), editing, and provider profile linking.
 
 
-### 🔔 5. Notifications & Reviews
+###  5. Notifications & Reviews
 - **Real-Time SignalR Alerts**: Instant notifications for application events.
 - **Notification Inbox (`/notifications`)**: Read/unread status toggles and deletion.
 - **Peer Reviews (`/reviews/{userId}`)**: 1–5 star rating system with comment feedback (self-review and duplicate review guards).
 
-### 🔔 6. Settings & Profile
+###  6. Settings & Profile
 - **Settings Page (`/settings`)**: Theme toggle (Light/Dark).
 - **Profile Management (`/profile`)**: Manage profile (Full Name, University, Bio) and Security (Password).
 
 
 
-### 👤 6. User Profile Management
+###  7. User Profile Management
 - **Profile Center (`/profile`)**: Manage Full Name, Phone Number, Email, University affiliation, Bio, and Avatar URLs with role indicators.
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 | Layer | Technologies Used |
 |---|---|
@@ -84,7 +84,7 @@
 
 ---
 
-## 📂 System Architecture & Structure
+## System Architecture & Structure
 
 ```text
 StudentJobHub/
@@ -109,7 +109,7 @@ StudentJobHub/
 
 ---
 
-## ⚙️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -176,7 +176,7 @@ Migrations will automatically apply or create the database upon application laun
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Run the automated xUnit test suite covering authentication, job ownership enforcement, application workflow, and review rules:
 
@@ -191,6 +191,6 @@ Passed!  - Failed: 0, Passed: 9, Skipped: 0, Total: 9
 
 ---
 
-## 👥 Contributing & Team
+##  Contributing & Team
 
 Built for the **DCIT318 Group Project** at University of Ghana under the leadership of Addo Michael Obiri and team contributors. Refer to [ACTION_PLAN.md](ACTION_PLAN.md) for team development guidelines.
