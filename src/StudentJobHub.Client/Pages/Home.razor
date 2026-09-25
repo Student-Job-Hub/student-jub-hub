@@ -7,8 +7,8 @@
 		<h1>Student Job Hub</h1>
 		<p>Connect students with jobs, services, and opportunities on campus.</p>
 		<div class="home-actions">
-			<a href="/jobs" class="primary-button">Browse Jobs</a>
-			<a href="/services" class="secondary-button">Explore Services</a>
+			<a href="/jobs" class="secondary-button">Browse Jobs</a>
+			<a href="/services" class="services-button">Explore Services</a>
 		</div>
 	</section>
 
@@ -17,6 +17,7 @@
 			<h2>Join the community</h2>
 			<p>Create an account to post jobs, apply for opportunities, and offer services.</p>
 		</a>
+
 		<a href="/login" class="home-link">
 			<h2>Already a member?</h2>
 			<p>Sign in to manage your applications, jobs, services, and profile.</p>
@@ -50,12 +51,19 @@
 		font-size: 1.1rem;
 	}
 
-	.home-actions,
+	.home-actions {
+		display: flex;
+		justify-content: center;
+		gap: 16px;
+		
+	}
+
 	.home-links {
 		display: flex;
 		justify-content: center;
 		gap: 16px;
 	}
+
 
 	.home-links {
 		margin-top: 28px;
@@ -70,6 +78,11 @@
 		border-radius: 12px;
 		color: inherit;
 		text-decoration: none;
+		background-color: rgba(237, 218, 237, 0.59);
+	}
+
+	.home-link:hover {
+		background-color: #a9e5b9ff;
 	}
 
 	.home-link h2 {
@@ -80,6 +93,16 @@
 	.home-link p {
 		margin: 0;
 		color: #6b7280;
+	}
+
+	.services-button {
+		background-color: #19a3edff;
+		color: #0b0a0aff;
+		border-radius: 0 !important;
+		padding: 6px 24px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		font-weight: bold;
 	}
 
 	@@media (max-width: 640px) {

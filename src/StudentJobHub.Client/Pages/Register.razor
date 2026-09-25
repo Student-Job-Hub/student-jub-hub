@@ -141,19 +141,19 @@
 
             <button
                 type="submit"
-                class="auth-button"
+                class="secondary-button"
                 disabled="@isLoading"
-                style="color: #43614dff; text-decoration: underline; font-size: 16px; font-weight: bold;"
+                style="font-size: 16px;"
                 >
 
-                @(isLoading ? "Creating Account..." : "Create Account")
+                @(isLoading ? "Creating Account..." : "Submit")
             </button>
         </EditForm>
 
         <div class="auth-footer">
             <p style="font-size: 16px;">
                 Already have an account?
-                <a href="/login" style="color: #4559d7ff; text-decoration: underline; font-weight: bold;">Login</a>
+                <a href="/login" style="color: #2563eb; text-decoration: underline; font-weight: bold;">Sign in</a>
             </p>
         </div>
 

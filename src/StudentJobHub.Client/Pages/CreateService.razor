@@ -24,7 +24,16 @@
 
         <div class="form-group">
             <label>Category</label>
-            <InputText class="form-control" @bind-Value="model.Category" />
+            <InputSelect class="form-control" @bind-Value="model.Category">
+                <option value="">Select Category</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Tutoring">Tutoring</option>
+                <option value="Academic Help">Academic Help</option>
+                <option value="Creative Services">Creative Services</option>
+                <option value="Technical Services">Technical Services</option>
+                <option value="Event Services">Event Services</option>
+                <option value="Other">Other</option>
+            </InputSelect>
             <ValidationMessage For="@(() => model.Category)" />
         </div>
 
@@ -40,11 +49,23 @@
             <ValidationMessage For="@(() => model.Price)" />
         </div>
 
-        <button type="submit" class="primary-button" disabled="@isSubmitting">
+        <button type="submit" class="secondary-button" disabled="@isSubmitting">
             @(isSubmitting ? "Posting..." : "Post Service")
         </button>
     </EditForm>
 </div>
+
+<style>
+   .error-message {
+              color: #dc3545;
+              margin: 15px 0;
+              padding: 10px 15px;
+              background-color: #ffe9ea;
+              border: 1px solid #f5c6cb;
+              border-radius: 5px;
+              font-weight: 500;
+   }
+</style>
 
 @code {
     private CreateServiceModel model = new();
@@ -68,9 +89,8 @@
                 errorMessage = "You must be logged in to post a service.";
             }
             else
-            {
                 errorMessage = "Unable to create the service.";
-            }
+            
         }
         catch (Exception ex)
         {
