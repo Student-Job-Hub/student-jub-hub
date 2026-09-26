@@ -60,7 +60,7 @@ Student Job Hub is a campus-centric marketplace designed to bridge the gap betwe
 - Peer rating system (1 to 5 stars) with self-review and duplicate review guards.
 
 ### 6. User Profile
-- View and update profile fields (`FullName`, `University`, `Bio`, `ProfilePictureUrl`).
+- View and update profile fields (`FullName`, `Phone`, `University`, `Bio`, `ProfilePictureUrl`).
 
 ---
 
