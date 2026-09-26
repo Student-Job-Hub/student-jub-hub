@@ -7,7 +7,7 @@
 <PageTitle>Job Applications | Student Job Hub</PageTitle>
 
 <div class="page-container">
-    <a href="/my-jobs">Back to My Jobs</a>
+    <a href="/my-jobs" style="color: #2563eb;">Back to My Jobs</a>
     <h1>Applications</h1>
 
     @if (isLoading)
@@ -33,13 +33,13 @@
                             <h2>@application.ApplicantName</h2>
                             <p>Applied @application.AppliedAt.ToString("dd MMM yyyy")</p>
                         </div>
-                        <span>@application.Status</span>
+                        <span class="application-status">@application.Status</span>
                     </div>
                     <p>@application.Message</p>
                     <div class="application-actions">
-                        <button @onclick="() => AcceptAsync(application)"
+                        <button @onclick="() => AcceptAsync(application)" class="accept-button"
                                 disabled="@IsUpdating(application.Id)">Accept</button>
-                        <button @onclick="() => RejectAsync(application)"
+                        <button @onclick="() => RejectAsync(application)" class="reject-button"
                                 disabled="@IsUpdating(application.Id)">Reject</button>
                     </div>
                 </article>
@@ -47,6 +47,65 @@
         </div>
     }
 </div>
+
+<style>
+   .accept-button {
+    background: green;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+   }
+   .accept-button:disabled {
+    background: gray;
+    cursor: not-allowed;
+   }
+   .reject-button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+   }
+   .reject-button:disabled {
+    background: gray;
+    cursor: not-allowed;
+   }
+
+   .application-card {
+    background: rgba(232, 228, 232, 0.59);
+    border: 1px solid #576a91ff;
+    border-radius: 12px;
+    padding: 24px;
+   }
+
+
+   .application-actions {
+    margin-top: 16px;
+   }
+
+   .application-actions button {
+    margin-right: 12px;
+   }
+
+   .application-card:not(:last-child) {
+    margin-bottom: 12px;
+   }
+
+   .application-status {
+    background: #2563eb;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    position: relative;
+    bottom: 8px;
+ 
+   }
+
+
+</style>
 
 @code {
     [Parameter] public int JobId { get; set; }
