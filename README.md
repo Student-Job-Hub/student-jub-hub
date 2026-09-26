@@ -138,7 +138,7 @@ Migrations will automatically apply or create the database upon application laun
 
 1. **Clone the Repository**:
    ```powershell
-   git clone https://github.com/your-org/StudentJobHub.git
+   git clone https://github.com/Student-Job-Hub/student-jub-hub.git
    cd StudentJobHub
    ```
 
