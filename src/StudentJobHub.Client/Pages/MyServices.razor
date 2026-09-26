@@ -83,6 +83,63 @@
 
 </div>
 
+<style>
+   .job-card {
+    border: 1px solid #576a91ff;
+    background-color: #e8e4e4ff;
+   }
+
+   .job-card:not(:last-child) {
+    margin-bottom: 12px;
+   }
+
+   .job-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+   }
+
+   .job-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+
+   .job-card-header h2 {
+    margin-bottom: 8px;
+   }
+
+   .job-card-header .job-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+   }
+
+   .job-card-header .job-budget {
+    font-size: 18px;
+    font-weight: bold;
+   }
+
+   .job-description {
+    margin-bottom: 8px;
+   }
+
+   .job-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+   }
+
+   .job-actions {
+    display: flex;
+    justify-content: flex-end;
+   }
+
+   .job-actions button {
+    margin-left: 8px;
+   }
+</style>
+
 <ConfirmModal IsOpen="@(serviceToDelete != null)"
               Title="Delete Service"
               Message="@($"Are you sure you want to delete '{serviceToDelete?.Title}'? This action cannot be undone.")"
