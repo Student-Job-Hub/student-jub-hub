@@ -21,8 +21,6 @@ body {
 .modal-dialog-custom,
 .post-job-button,
 .post-job-form,
-.view-button,
-.edit-button,
 .btn,
 .btn-sm,
 .btn-primary,
@@ -750,8 +748,7 @@ code {
     padding-top: 18px;
 }
 
-.view-button,
-.edit-button {
+.view-button{
     flex: 1;
     text-align: center;
     padding: 10px 15px;
@@ -765,10 +762,6 @@ code {
     color: white;
 }
 
-.edit-button {
-    border: 1px solid #d1d5db;
-    color: #374151;
-}
 
 
 /* LOADING / ERROR / EMPTY */
@@ -923,6 +916,34 @@ code {
 .cancel-button:hover {
     background: #f6e3e3;
 }
+
+.delete-button {
+    border: 1px solid #cc3d3d;
+    color:red;
+    background-color: #fefbfb;
+    display: inline;
+    flex: 1;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.edit-button {
+    border: 1px solid #4881c0;
+    color: rgb(32, 111, 230);
+    background-color: #fefbfb;
+    display: inline;
+    flex: 1;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
 
 .post-job-button:disabled {
     background: #93c5fd;
