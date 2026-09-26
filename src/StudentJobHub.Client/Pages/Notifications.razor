@@ -32,21 +32,29 @@
             {
                 <div class="notification-item @(notification.IsRead ? "read" : "unread")">
                     <div>
-                        <p>@notification.Message</p>
-                        <small>@notification.CreatedAt.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</small>
+                        <p style="margin-bottom: 10px; margin-top: 10px; font-size: 16px; font-weight: bold;">@notification.Message</p>
+                        <small style="margin-top: 0px; font-weight: bold; color: #666;">@notification.CreatedAt.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</small>
                     </div>
                     <div class="notification-actions">
                         @if (!notification.IsRead)
                         {
                             <button class="secondary-button" @onclick="() => MarkAsReadAsync(notification.Id)">Mark read</button>
                         }
-                        <button class="danger-button" @onclick="() => DeleteAsync(notification.Id)">Delete</button>
+                        <button class="delete-button" @onclick="() => DeleteAsync(notification.Id)">Delete</button>
                     </div>
                 </div>
             }
         </div>
     }
 </div>
+
+<style>
+   .notification-actions {
+        display: grid;
+        width: 20%;
+        gap: 8px;
+   }
+</style>
 
 @code {
     private List<NotificationModel> notifications = new();
